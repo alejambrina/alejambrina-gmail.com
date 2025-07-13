@@ -1,0 +1,112 @@
+{
+  "properties": [
+    {
+      "id": "prop1",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Departamento Moderno en Palermo",
+      "location": "Palermo, CABA",
+      "priceUSD": "150.000",
+      "priceARS": "190.350.000",
+      "creditEligible": true,
+      "description": "Amplio y luminoso departamento de 2 ambientes en el corazón de Palermo. Cuenta con balcón, cocina integrada y excelentes terminaciones. Ideal para parejas o inversores.",
+      "features": ["2 ambientes", "1 baño", "50 m²", "Balcón", "Apto profesional"]
+    },
+    {
+      "id": "prop2",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Casa con Jardín en Belgrano",
+      "location": "Belgrano, CABA",
+      "priceUSD": "320.000",
+      "priceARS": "405.000.000",
+      "creditEligible": true,
+      "description": "Hermosa casa con jardín y piscina en una de las zonas más exclusivas de Belgrano. 3 dormitorios, 2 baños, amplio living-comedor y quincho. Perfecta para familias.",
+      "features": ["4 ambientes", "2 baños", "180 m²", "Jardín", "Piscina", "Quincho"]
+    },
+    {
+      "id": "prop3",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "PH Luminoso en Villa Crespo",
+      "location": "Villa Crespo, CABA",
+      "priceUSD": "110.000",
+      "priceARS": "139.000.000",
+      "creditEligible": false,
+      "description": "PH de 3 ambientes en planta baja, con patio interno y mucha luz natural. Ubicado en una calle tranquila, cerca de medios de transporte y comercios.",
+      "features": ["3 ambientes", "1 baño", "70 m²", "Patio", "Sin expensas"]
+    },
+    {
+      "id": "prop4",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Loft con Balcón en Recoleta",
+      "location": "Recoleta, CABA",
+      "priceUSD": "210.000",
+      "priceARS": "266.000.000",
+      "creditEligible": true,
+      "description": "Moderno loft de doble altura con balcón aterrazado y vista abierta. Diseño vanguardista y excelente ubicación en Recoleta, ideal para solteros o parejas.",
+      "features": ["1 ambiente", "1 baño", "60 m²", "Balcón", "Doble altura"]
+    },
+    {
+      "id": "prop5",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Departamento a Estrenar en Caballito",
+      "location": "Caballito, CABA",
+      "priceUSD": "185.000",
+      "priceARS": "234.000.000",
+      "creditEligible": true,
+      "description": "Departamento de 3 ambientes a estrenar en edificio con amenities. Cocina integrada, 2 dormitorios, 2 baños y balcón. Cerca de parques y avenidas principales.",
+      "features": ["3 ambientes", "2 baños", "75 m²", "Balcón", "Amenities"]
+    },
+    {
+      "id": "prop6",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Casa Antigua en San Telmo",
+      "location": "San Telmo, CABA",
+      "priceUSD": "250.000",
+      "priceARS": "316.000.000",
+      "creditEligible": false,
+      "description": "Encantadora casa antigua restaurada en el corazón de San Telmo. Ideal para amantes de la historia y la arquitectura. Patio central y amplios espacios.",
+      "features": ["5 ambientes", "3 baños", "200 m²", "Patio central", "Estilo colonial"]
+    },
+    {
+      "id": "prop7",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Monoambiente con Vista en Microcentro",
+      "location": "Microcentro, CABA",
+      "priceUSD": "85.000",
+      "priceARS": "107.000.000",
+      "creditEligible": true,
+      "description": "Funcional monoambiente con excelente vista panorámica de la ciudad. Ideal para estudiantes o profesionales. Cerca de universidades y centros de negocios.",
+      "features": ["1 ambiente", "1 baño", "30 m²", "Vista panorámica", "Seguridad 24hs"]
+    },
+    {
+      "id": "prop8",
+      "image": "/placeholder.svg?height=400&width=600",
+      "title": "Duplex Moderno en Colegiales",
+      "location": "Colegiales, CABA",
+      "priceUSD": "290.000",
+      "priceARS": "367.000.000",
+      "creditEligible": true,
+      "description": "Espectacular dúplex de 4 ambientes con terraza propia y parrilla. Diseño moderno y acabados de alta calidad. Ubicado en una zona residencial tranquila.",
+      "features": ["4 ambientes", "2 baños", "120 m²", "Terraza", "Parrilla", "Cochera"]
+    }
+  ],
+  "blogPosts": [
+    {
+      "slug": "guia-primer-comprador",
+      "title": "Guía completa para el primer comprador de propiedades en Argentina",
+      "date": "15 de Julio, 2025",
+      "author": "Equipo Techito",
+      "image": "/placeholder.svg?height=300&width=500",
+      "excerpt": "Comprar tu primera propiedad puede ser abrumador. Esta guía te lleva paso a paso por todo el proceso, desde la búsqueda hasta la firma.",
+      "content": "### ¿Estás pensando en comprar tu primera propiedad en Argentina? ¡Felicitaciones! Es un paso emocionante y significativo. Sin embargo, el proceso puede parecer complejo y lleno de desafíos. En Techito, queremos simplificarlo para vos. \n\n#### 1. Definí tu presupuesto y financiamiento\nAntes de empezar a buscar, es crucial saber cuánto podés gastar. Considerá no solo el precio de la propiedad, sino también los gastos adicionales (escritura, impuestos, comisiones). Si necesitás un crédito hipotecario, investigá las opciones disponibles y pre-aprobate para tener una idea clara de tu capacidad de endeudamiento.\n\n#### 2. Identificá tus necesidades y deseos\nHacé una lista de lo que es indispensable para vos (número de ambientes, ubicación, cercanía a transporte) y lo que te gustaría tener (balcón, jardín, amenities). Esto te ayudará a filtrar las opciones y a no perder tiempo en propiedades que no cumplen tus expectativas.\n\n#### 3. La búsqueda inteligente con Techito\nAquí es donde Techito entra en juego. Nuestra plataforma te ayuda a buscar, comparar y negociar propiedades para que ahorres tiempo y dinero. Utilizamos algoritmos avanzados para identificar las mejores oportunidades y te conectamos con profesionales que te asesorarán en cada etapa.\n\n#### 4. Visitas y evaluación\nUna vez que tengas una lista de propiedades que te interesan, programá visitas. Prestá atención a los detalles: estado general, luminosidad, ventilación, ruidos, y el entorno del barrio. No dudes en hacer todas las preguntas necesarias.\n\n#### 5. La oferta y negociación\nCuando encuentres tu techito ideal, es momento de hacer una oferta. En Techito, te brindamos herramientas y asesoramiento para negociar el mejor precio posible. Nuestro objetivo es que ahorres al máximo.\n\n#### 6. Aspectos legales y financieros\nUna vez aceptada la oferta, se inicia el proceso legal. Esto incluye la firma del boleto de compraventa y la escritura. Asegurate de contar con un escribano de confianza y de entender todos los documentos que firmás.\n\n#### 7. ¡Disfrutá tu nuevo hogar!\nFinalmente, una vez que todos los trámites estén completos y tengas las llaves en mano, ¡es hora de celebrar! Te deseamos lo mejor en esta nueva etapa en tu techito ideal."
+    },
+    {
+      "slug": "tendencias-mercado-inmobiliario",
+      "title": "Tendencias del mercado inmobiliario argentino 2025",
+      "date": "10 de Julio, 2025",
+      "author": "Analistas Techito",
+      "image": "/placeholder.svg?height=300&width=500",
+      "excerpt": "Descubre las proyecciones y oportunidades en el mercado de propiedades de Argentina para el próximo año.",
+      "content": "### El 2025 se perfila como un año de cambios y oportunidades en el mercado inmobiliario argentino. Aquí te presentamos las principales tendencias que nuestros analistas han identificado:\n\n#### 1. Resurgimiento del crédito hipotecario\nCon la estabilización económica y nuevas políticas, se espera un gradual resurgimiento de las líneas de crédito hipotecario, lo que facilitará el acceso a la vivienda para un segmento más amplio de la población. Esto podría impulsar la demanda y, consecuentemente, los precios en ciertas zonas.\n\n#### 2. Mayor demanda en zonas periféricas\nLa búsqueda de espacios más amplios y precios más accesibles sigue impulsando la demanda hacia zonas periféricas de las grandes ciudades, así como en ciudades intermedias del interior del país. El teletrabajo continúa siendo un factor clave en esta tendencia.\n\n#### 3. Auge de las propiedades sustentables\nHay una creciente conciencia sobre la importancia de la sustentabilidad. Las propiedades con certificaciones de eficiencia energética, paneles solares o sistemas de recolección de agua están ganando valor y atractivo para los compradores.\n\n#### 4. Digitalización del proceso de compra-venta\nPlataformas como Techito están liderando la digitalización del sector. Desde la búsqueda y comparación online hasta la firma digital de documentos, la tecnología simplifica y agiliza el proceso, haciéndolo más transparente y eficiente para compradores y vendedores.\n\n#### 5. Inversión en propiedades para renta temporal\nCon el auge del turismo y las plataformas de alquiler temporario, la inversión en propiedades destinadas a este fin sigue siendo atractiva, especialmente en zonas turísticas o céntricas. Se observa un interés creciente en unidades pequeñas y bien ubicadas.\n\nEn Techito, estamos monitoreando de cerca estas tendencias para asegurarnos de que nuestros usuarios siempre tengan acceso a las mejores oportunidades y la información más relevante para tomar decisiones inteligentes en el mercado inmobiliario."
+    }
+  ]
+}
