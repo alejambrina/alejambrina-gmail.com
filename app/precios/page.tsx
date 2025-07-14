@@ -76,6 +76,12 @@ export default function PreciosPage() {
           >
             Blog
           </Link>
+          <Link
+            href="/contacto"
+            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
+          >
+            Contacto
+          </Link>
         </nav>
       </header>
 
