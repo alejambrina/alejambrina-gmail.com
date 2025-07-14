@@ -79,7 +79,7 @@ export default async function HomePage() {
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="relative w-24 h-24 rounded-md overflow-hidden flex-shrink-0">
                       <Image
-                        src={property.image || "/placeholder.svg"}
+                        src={property.image || "/placeholder.svg?height=96&width=96&text=🏠&bg=f3f4f6&color=6b7280"}
                         alt={property.title}
                         layout="fill"
                         objectFit="cover"
