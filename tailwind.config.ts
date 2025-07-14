@@ -55,14 +55,14 @@ const config = {
         },
         // Custom colors for Techito based on the image
         techitoPurple: {
-          DEFAULT: "#8B5CF6", // A vibrant purple
-          light: "#A78BFA",
-          dark: "#7C3AED",
+          DEFAULT: "#7F56D9", // Restaurado al violeta original
+          light: "#9B7EEA",
+          dark: "#6A49B8",
         },
-        techitoBackground: "#F9F5FF", // Very light, diffused purple/off-white
-        techitoText: "#333333", // Dark gray for main text
-        techitoLightGray: "#E0E0E0", // For borders/dividers
-        techitoGreen: "#22C55E", // For "Apta crédito" badge
+        techitoBackground: "#F8F8F8",
+        techitoText: "#333333",
+        techitoLightGray: "#E0E0E0",
+        techitoGreen: "#22C55E",
       },
       borderRadius: {
         lg: "var(--radius)",

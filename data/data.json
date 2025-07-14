@@ -12,9 +12,16 @@
       "location": "Palermo, CABA",
       "priceUSD": "180.000",
       "priceARS": "228.000.000",
+      "priceUVA": "152.000",
       "creditEligible": true,
       "description": "Amplio y luminoso departamento de 2 ambientes en el corazón de Palermo. Cuenta con balcón, cocina integrada y excelentes terminaciones. Ideal para parejas o inversores.",
-      "features": ["2 ambientes", "1 baño", "50 m²", "Balcón", "Apto profesional"]
+      "features": ["2 ambientes", "1 baño", "50 m²", "Balcón", "Apto profesional"],
+      "coveredArea": 45,
+      "uncoveredArea": 5,
+      "expenses": "ARS 96.000/mes",
+      "rooms": 2,
+      "bathrooms": 1,
+      "garages": 0
     },
     {
       "id": "prop2",
@@ -28,9 +35,16 @@
       "location": "Belgrano, CABA",
       "priceUSD": "320.000",
       "priceARS": "405.000.000",
+      "priceUVA": "270.000",
       "creditEligible": true,
       "description": "Hermosa casa con jardín y piscina en una de las zonas más exclusivas de Belgrano. 3 dormitorios, 2 baños, amplio living-comedor y quincho. Perfecta para familias.",
-      "features": ["4 ambientes", "2 baños", "180 m²", "Jardín", "Piscina", "Quincho"]
+      "features": ["4 ambientes", "2 baños", "180 m²", "Jardín", "Piscina", "Quincho"],
+      "coveredArea": 150,
+      "uncoveredArea": 30,
+      "expenses": "ARS 180.000/mes",
+      "rooms": 4,
+      "bathrooms": 2,
+      "garages": 1
     },
     {
       "id": "prop3",
@@ -44,9 +58,16 @@
       "location": "Villa Crespo, CABA",
       "priceUSD": "110.000",
       "priceARS": "139.000.000",
+      "priceUVA": "92.667",
       "creditEligible": false,
       "description": "PH de 3 ambientes en planta baja, con patio interno y mucha luz natural. Ubicado en una calle tranquila, cerca de medios de transporte y comercios.",
-      "features": ["3 ambientes", "1 baño", "70 m²", "Patio", "Sin expensas"]
+      "features": ["3 ambientes", "1 baño", "70 m²", "Patio", "Sin expensas"],
+      "coveredArea": 60,
+      "uncoveredArea": 10,
+      "expenses": "Sin expensas",
+      "rooms": 3,
+      "bathrooms": 1,
+      "garages": 0
     },
     {
       "id": "prop4",
@@ -60,9 +81,16 @@
       "location": "Recoleta, CABA",
       "priceUSD": "210.000",
       "priceARS": "266.000.000",
+      "priceUVA": "177.333",
       "creditEligible": true,
       "description": "Moderno loft de doble altura con balcón aterrazado y vista abierta. Diseño vanguardista y excelente ubicación en Recoleta, ideal para solteros o parejas.",
-      "features": ["1 ambiente", "1 baño", "60 m²", "Balcón", "Doble altura"]
+      "features": ["1 ambiente", "1 baño", "60 m²", "Balcón", "Doble altura"],
+      "coveredArea": 55,
+      "uncoveredArea": 5,
+      "expenses": "ARS 120.000/mes",
+      "rooms": 1,
+      "bathrooms": 1,
+      "garages": 0
     },
     {
       "id": "prop5",
@@ -76,9 +104,16 @@
       "location": "Caballito, CABA",
       "priceUSD": "185.000",
       "priceARS": "234.000.000",
+      "priceUVA": "156.000",
       "creditEligible": true,
       "description": "Departamento de 3 ambientes a estrenar en edificio con amenities. Cocina integrada, 2 dormitorios, 2 baños y balcón. Cerca de parques y avenidas principales.",
-      "features": ["3 ambientes", "2 baños", "75 m²", "Balcón", "Amenities"]
+      "features": ["3 ambientes", "2 baños", "75 m²", "Balcón", "Amenities"],
+      "coveredArea": 70,
+      "uncoveredArea": 5,
+      "expenses": "ARS 108.000/mes",
+      "rooms": 3,
+      "bathrooms": 2,
+      "garages": 1
     },
     {
       "id": "prop6",
@@ -92,9 +127,16 @@
       "location": "San Telmo, CABA",
       "priceUSD": "250.000",
       "priceARS": "316.000.000",
+      "priceUVA": "210.667",
       "creditEligible": false,
       "description": "Encantadora casa antigua restaurada en el corazón de San Telmo. Ideal para amantes de la historia y la arquitectura. Patio central y amplios espacios.",
-      "features": ["5 ambientes", "3 baños", "200 m²", "Patio central", "Estilo colonial"]
+      "features": ["5 ambientes", "3 baños", "200 m²", "Patio central", "Estilo colonial"],
+      "coveredArea": 180,
+      "uncoveredArea": 20,
+      "expenses": "Sin expensas",
+      "rooms": 5,
+      "bathrooms": 3,
+      "garages": 0
     },
     {
       "id": "prop7",
@@ -108,9 +150,16 @@
       "location": "Microcentro, CABA",
       "priceUSD": "85.000",
       "priceARS": "107.000.000",
+      "priceUVA": "71.333",
       "creditEligible": true,
       "description": "Funcional monoambiente con excelente vista panorámica de la ciudad. Ideal para estudiantes o profesionales. Cerca de universidades y centros de negocios.",
-      "features": ["1 ambiente", "1 baño", "30 m²", "Vista panorámica", "Seguridad 24hs"]
+      "features": ["1 ambiente", "1 baño", "30 m²", "Vista panorámica", "Seguridad 24hs"],
+      "coveredArea": 28,
+      "uncoveredArea": 2,
+      "expenses": "ARS 72.000/mes",
+      "rooms": 1,
+      "bathrooms": 1,
+      "garages": 0
     },
     {
       "id": "prop8",
@@ -124,9 +173,16 @@
       "location": "Colegiales, CABA",
       "priceUSD": "290.000",
       "priceARS": "367.000.000",
+      "priceUVA": "244.667",
       "creditEligible": true,
       "description": "Espectacular dúplex de 4 ambientes con terraza propia y parrilla. Diseño moderno y acabados de alta calidad. Ubicado en una zona residencial tranquila.",
-      "features": ["4 ambientes", "2 baños", "120 m²", "Terraza", "Parrilla", "Cochera"]
+      "features": ["4 ambientes", "2 baños", "120 m²", "Terraza", "Parrilla", "Cochera"],
+      "coveredArea": 100,
+      "uncoveredArea": 20,
+      "expenses": "ARS 144.000/mes",
+      "rooms": 4,
+      "bathrooms": 2,
+      "garages": 1
     }
   ],
   "blogPosts": [

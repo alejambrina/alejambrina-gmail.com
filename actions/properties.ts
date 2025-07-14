@@ -1,19 +1,28 @@
 "use server"
 
-// ✅ next-lite no permite módulos nativos de Node.
+// ✅ Next.js no permite módulos nativos de Node.
 //    Importamos el JSON estático para usarlo en el browser y en el edge.
 import dataJson from "@/data/data.json"
 
+// Add new fields to the Property interface
 interface Property {
   id: string
   image: string
+  images?: string[] // Added images array
   title: string
   location: string
   priceUSD: string
   priceARS: string
+  priceUVA: string // New field for UVA price
   creditEligible: boolean
   description?: string
   features?: string[]
+  coveredArea?: number // New field
+  uncoveredArea?: number // New field
+  expenses?: string // New field
+  rooms?: number // New field
+  bathrooms?: number // New field
+  garages?: number // New field
 }
 
 interface BlogPost {

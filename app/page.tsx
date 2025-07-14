@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Sparkles, MapPin, DollarSign } from "lucide-react" // Changed Percent to Sparkles
+// Add new imports for icons
+import { Sparkles, MapPin, DollarSign, Square, Bed, Bath, Car, Wallet } from "lucide-react"
 import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image"
@@ -17,7 +18,8 @@ export default async function HomePage() {
         {/* Hero Search Section */}
         <section className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
-            La manera más inteligente de comprar tu primera propiedad
+            La manera más <span className="">inteligente</span> de comprar tu{" "}
+            <span className="text-techitoPurple">primera propiedad</span>
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             Techito compara miles de propiedades y te muestra solo las oportunidades mas baratas del mercado. ¡Comprá
@@ -63,10 +65,45 @@ export default async function HomePage() {
                       <MapPin className="h-4 w-4 text-gray-400" /> {property.location}
                     </p>
                     <p className="font-bold text-lg flex items-center gap-1">
-                      <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
+                      <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD} - UVA{" "}
+                      {property.priceUVA}
                     </p>
+                    {/* Inside the CardContent for each property, add the following details:
+                  // After the price paragraph: */}
+                    <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                      {property.coveredArea && (
+                        <p className="flex items-center gap-1">
+                          <Square className="h-4 w-4 text-gray-400" /> {property.coveredArea} m² cub.
+                        </p>
+                      )}
+                      {property.uncoveredArea && (
+                        <p className="flex items-center gap-1">
+                          <Square className="h-4 w-4 text-gray-400" /> {property.uncoveredArea} m² desc.
+                        </p>
+                      )}
+                      {property.rooms !== undefined && (
+                        <p className="flex items-center gap-1">
+                          <Bed className="h-4 w-4 text-gray-400" /> {property.rooms} amb.
+                        </p>
+                      )}
+                      {property.bathrooms !== undefined && (
+                        <p className="flex items-center gap-1">
+                          <Bath className="h-4 w-4 text-gray-400" /> {property.bathrooms} baños
+                        </p>
+                      )}
+                      {property.garages !== undefined && (
+                        <p className="flex items-center gap-1">
+                          <Car className="h-4 w-4 text-gray-400" /> {property.garages} coch.
+                        </p>
+                      )}
+                      {property.expenses && (
+                        <p className="flex items-center gap-1">
+                          <Wallet className="h-4 w-4 text-gray-400" /> Expensas: {property.expenses}
+                        </p>
+                      )}
+                    </div>
                     <span className="bg-techitoPurple text-white text-xs font-semibold px-2.5 py-1 rounded-full inline-block self-start mt-1">
-                      {property.id === "prop1" ? "30% debajo del promedio" : "35% bajo mercado"}
+                      35% debajo del promedio
                     </span>
                   </CardContent>
                 </Card>

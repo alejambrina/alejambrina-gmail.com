@@ -2,7 +2,7 @@
 
 import { getPropertyById } from "@/actions/properties"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, ChevronLeft, Circle } from "lucide-react" // Added Circle for dots
+import { ChevronRight, ChevronLeft, Circle, Square, Bed, Bath, Car, Wallet } from "lucide-react" // Added new icons
 import Image from "next/image"
 import Link from "next/link"
 import { GoogleMapsEmbed } from "@next/third-parties/google"
@@ -108,7 +108,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
         <div className="bg-white p-6 rounded-lg shadow-md border border-techitoLightGray space-y-4">
           <h1 className="text-2xl md:text-3xl font-bold">{property.title.split(" en ")[0]}</h1>
           <p className="text-gray-600 text-lg">
-            USD {property.priceUSD} - ARS {property.priceARS}
+            USD {property.priceUSD} - UVA {property.priceUVA}
           </p>
 
           <div className="flex items-center gap-2">
@@ -118,6 +118,40 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             <span className="text-gray-600 text-sm">
               {property.features?.[2] || "N/A"} - {property.features?.[0] || "N/A"}
             </span>
+          </div>
+
+          {/* New section for detailed property features */}
+          <div className="grid grid-cols-2 gap-3 pt-4 border-t border-techitoLightGray">
+            {property.coveredArea && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Square className="h-4 w-4 text-gray-500" /> {property.coveredArea} m² cub.
+              </p>
+            )}
+            {property.uncoveredArea && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Square className="h-4 w-4 text-gray-500" /> {property.uncoveredArea} m² desc.
+              </p>
+            )}
+            {property.rooms !== undefined && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Bed className="h-4 w-4 text-gray-500" /> {property.rooms} amb.
+              </p>
+            )}
+            {property.bathrooms !== undefined && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Bath className="h-4 w-4 text-gray-500" /> {property.bathrooms} baños
+              </p>
+            )}
+            {property.garages !== undefined && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Car className="h-4 w-4 text-gray-500" /> {property.garages} coch.
+              </p>
+            )}
+            {property.expenses && (
+              <p className="flex items-center gap-1 text-sm text-gray-700">
+                <Wallet className="h-4 w-4 text-gray-500" /> Expensas: {property.expenses}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-3 pt-4 border-t border-techitoLightGray">

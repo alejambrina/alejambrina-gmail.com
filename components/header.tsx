@@ -1,11 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Menu } from "lucide-react" // Removed other icon imports
+import { Menu } from "lucide-react" // Removed other icon imports
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils" // Assuming cn utility is available
+import Logo from "@/components/logo"
 
 export default function Header() {
   const pathname = usePathname()
@@ -19,11 +20,8 @@ export default function Header() {
   ]
 
   return (
-    <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray bg-techitoBackground">
-      <Link href="/" className="flex items-center gap-2">
-        <Home className="h-6 w-6 text-techitoPurple" />
-        <span className="text-xl font-bold">Techito</span>
-      </Link>
+    <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray bg-white">
+      <Logo />
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex ml-auto gap-4 sm:gap-6">
@@ -50,11 +48,8 @@ export default function Header() {
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-techitoBackground p-6">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <Home className="h-6 w-6 text-techitoPurple" />
-              <span className="text-xl font-bold">Techito</span>
-            </Link>
+          <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-white p-6">
+            <Logo />
             <nav className="grid gap-4">
               {navLinks.map((link) => (
                 <Link
