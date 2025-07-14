@@ -24,7 +24,7 @@
     },
     {
       "id": "prop3",
-      "image": "/placeholder.svg?height=300&width=400&text=PH+Villa+Crespo&bg=f7fafc&color=4a5568",
+      "image": "/images/ph-villa-crespo.webp",
       "title": "PH Luminoso en Villa Crespo",
       "location": "Villa Crespo, CABA",
       "priceUSD": "110.000",
@@ -35,7 +35,7 @@
     },
     {
       "id": "prop4",
-      "image": "/placeholder.svg?height=300&width=400&text=Loft+Recoleta&bg=fef5e7&color=4a5568",
+      "image": "/images/loft-recoleta.webp",
       "title": "Loft con Balcón en Recoleta",
       "location": "Recoleta, CABA",
       "priceUSD": "210.000",
@@ -46,7 +46,7 @@
     },
     {
       "id": "prop5",
-      "image": "/placeholder.svg?height=300&width=400&text=Depto+Caballito&bg=f0fff4&color=4a5568",
+      "image": "/images/depto-caballito.webp",
       "title": "Departamento a Estrenar en Caballito",
       "location": "Caballito, CABA",
       "priceUSD": "185.000",
@@ -57,7 +57,7 @@
     },
     {
       "id": "prop6",
-      "image": "/placeholder.svg?height=300&width=400&text=Casa+San+Telmo&bg=fdf2f8&color=4a5568",
+      "image": "/images/casa-san-telmo.webp",
       "title": "Casa Antigua en San Telmo",
       "location": "San Telmo, CABA",
       "priceUSD": "250.000",
@@ -79,7 +79,7 @@
     },
     {
       "id": "prop8",
-      "image": "/placeholder.svg?height=300&width=400&text=Duplex+Colegiales&bg=f0f4f8&color=4a5568",
+      "image": "/images/duplex-colegiales.webp",
       "title": "Duplex Moderno en Colegiales",
       "location": "Colegiales, CABA",
       "priceUSD": "290.000",
