@@ -53,6 +53,7 @@ export default async function HomePage() {
                         alt={property.title}
                         layout="fill"
                         objectFit="cover"
+                        priority={true} // Añadido para precargar imágenes destacadas
                       />
                     </div>
                     <div className="flex-grow">
