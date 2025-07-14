@@ -30,9 +30,12 @@ export default async function HomePage() {
           >
             Precios
           </Link>
-          <Button variant="ghost" className="text-techitoText hover:bg-techitoPurple/10">
-            Iniciar sesión
-          </Button>
+          <Link
+            href="/preguntas"
+            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
+          >
+            Preguntas
+          </Link>
         </nav>
       </header>
 
