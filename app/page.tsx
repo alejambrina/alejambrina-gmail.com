@@ -67,15 +67,15 @@ export default async function HomePage() {
                     <p className="font-bold text-lg flex items-center gap-1">
                       <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
                     </p>
-                    <p className="font-bold text-lg flex items-center gap-1">
-                      <Wallet className="h-5 w-5 text-techitoPurple" /> UVA {property.priceUVA}
-                    </p>
-                    {/* Inside the CardContent for each property, add the following details:
-                  // After the price paragraph: */}
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
                       {property.coveredArea && (
                         <p className="flex items-center gap-1">
                           <Square className="h-4 w-4 text-gray-400" /> {property.coveredArea} m² cub.
+                        </p>
+                      )}
+                      {property.priceUVA && (
+                        <p className="flex items-center gap-1">
+                          <Wallet className="h-4 w-4 text-techitoPurple" /> UVA {property.priceUVA}
                         </p>
                       )}
                       {property.uncoveredArea && (
