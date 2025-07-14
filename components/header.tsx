@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Menu } from "lucide-react"
+import { Home, Menu, HelpCircle, DollarSign, BookOpen, Mail, Lightbulb } from "lucide-react" // Import new icons
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
@@ -11,11 +11,11 @@ export default function Header() {
   const pathname = usePathname()
 
   const navLinks = [
-    { href: "/como-funciona", label: "¿Cómo funciona?" },
-    { href: "/precios", label: "Precios" },
-    { href: "/preguntas", label: "Preguntas" },
-    { href: "/blog", label: "Blog" },
-    { href: "/contacto", label: "Contacto" },
+    { href: "/como-funciona", label: "¿Cómo funciona?", icon: Lightbulb }, // Changed to Lightbulb for "How it works"
+    { href: "/precios", label: "Precios", icon: DollarSign },
+    { href: "/preguntas", label: "Preguntas", icon: HelpCircle },
+    { href: "/blog", label: "Blog", icon: BookOpen },
+    { href: "/contacto", label: "Contacto", icon: Mail },
   ]
 
   return (
@@ -32,10 +32,11 @@ export default function Header() {
             key={link.href}
             href={link.href}
             className={cn(
-              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors",
+              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors flex items-center gap-1", // Added flex and gap
               pathname === link.href && "text-techitoPurple font-semibold",
             )}
           >
+            <link.icon className="h-4 w-4" /> {/* Render icon */}
             {link.label}
           </Link>
         ))}
@@ -61,10 +62,11 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors",
+                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors flex items-center gap-2", // Added flex and gap
                     pathname === link.href && "text-techitoPurple font-semibold",
                   )}
                 >
+                  <link.icon className="h-5 w-5" /> {/* Render icon */}
                   {link.label}
                 </Link>
               ))}
