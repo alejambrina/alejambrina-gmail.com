@@ -6,32 +6,41 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Contacto Section */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Contáctanos</h3>
+          <h3 className="text-base font-normal text-gray-400 mb-4">Contáctanos</h3>
           <ul className="space-y-2">
             <li>
-              <a href="mailto:hola@techito.com.ar" className="hover:text-techitoPurple transition-colors">
+              <a
+                href="mailto:hola@techito.com.ar"
+                className="text-gray-200 font-medium hover:text-techitoPurple transition-colors"
+              >
                 hola@techito.com.ar
               </a>
             </li>
           </ul>
           <div className="mt-6">
-            <h4 className="text-md font-semibold text-white mb-2">Horario de atención</h4>
-            <p>Lunes a viernes</p>
-            <p>07 a 22 hs</p>
+            <h4 className="text-base font-normal text-gray-400 mb-2">Horario de atención</h4>
+            <p className="text-gray-200 font-medium">Lunes a viernes</p>
+            <p className="text-gray-200 font-medium">07 a 22 hs</p>
           </div>
         </div>
 
         {/* Compañía Section */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Compañía</h3>
+          <h3 className="text-base font-normal text-gray-400 mb-4">Compañía</h3>
           <ul className="space-y-2">
             <li>
-              <Link href="/sobre-nosotros" className="hover:text-techitoPurple transition-colors">
+              <Link
+                href="/sobre-nosotros"
+                className="text-gray-200 font-medium hover:text-techitoPurple transition-colors"
+              >
                 Sobre Nosotros
               </Link>
             </li>
             <li>
-              <Link href="/trabaja-con-nosotros" className="hover:text-techitoPurple transition-colors">
+              <Link
+                href="/trabaja-con-nosotros"
+                className="text-gray-200 font-medium hover:text-techitoPurple transition-colors"
+              >
                 Trabaja con nosotros
               </Link>
             </li>
@@ -40,32 +49,35 @@ export default function Footer() {
 
         {/* Placeholder for other links or social media if needed */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Explora</h3>
+          <h3 className="text-base font-normal text-gray-400 mb-4">Explora</h3>
           <ul className="space-y-2">
             <li>
-              <Link href="/como-funciona" className="hover:text-techitoPurple transition-colors">
+              <Link
+                href="/como-funciona"
+                className="text-gray-200 font-medium hover:text-techitoPurple transition-colors"
+              >
                 ¿Cómo funciona?
               </Link>
             </li>
             <li>
-              <Link href="/precios" className="hover:text-techitoPurple transition-colors">
+              <Link href="/precios" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
                 Precios
               </Link>
             </li>
             <li>
-              <Link href="/preguntas" className="hover:text-techitoPurple transition-colors">
+              <Link href="/preguntas" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
                 Preguntas Frecuentes
               </Link>
             </li>
             <li>
-              <Link href="/blog" className="hover:text-techitoPurple transition-colors">
+              <Link href="/blog" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
                 Blog
               </Link>
             </li>
           </ul>
         </div>
       </div>
-      <div className="mt-12 text-center text-gray-500 text-sm">
+      <div className="mt-12 text-center text-gray-500 text-xs">
         <p>&copy; {new Date().getFullYear()} Techito. Todos los derechos reservados.</p>
       </div>
     </footer>
