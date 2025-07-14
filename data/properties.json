@@ -1,7 +1,7 @@
 [
   {
     "id": "prop1",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Palermo+Moderno",
     "title": "Departamento Moderno en Palermo",
     "location": "Palermo, CABA",
     "priceUSD": "150.000",
@@ -12,7 +12,7 @@
   },
   {
     "id": "prop2",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Belgrano+Jardin",
     "title": "Casa con Jardín en Belgrano",
     "location": "Belgrano, CABA",
     "priceUSD": "320.000",
@@ -23,7 +23,7 @@
   },
   {
     "id": "prop3",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Villa+Crespo+PH",
     "title": "PH Luminoso en Villa Crespo",
     "location": "Villa Crespo, CABA",
     "priceUSD": "110.000",
@@ -34,7 +34,7 @@
   },
   {
     "id": "prop4",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Recoleta+Loft",
     "title": "Loft con Balcón en Recoleta",
     "location": "Recoleta, CABA",
     "priceUSD": "210.000",
@@ -45,7 +45,7 @@
   },
   {
     "id": "prop5",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Caballito+Estreno",
     "title": "Departamento a Estrenar en Caballito",
     "location": "Caballito, CABA",
     "priceUSD": "185.000",
@@ -56,7 +56,7 @@
   },
   {
     "id": "prop6",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=San+Telmo+Antigua",
     "title": "Casa Antigua en San Telmo",
     "location": "San Telmo, CABA",
     "priceUSD": "250.000",
@@ -67,7 +67,7 @@
   },
   {
     "id": "prop7",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Microcentro+Vista",
     "title": "Monoambiente con Vista en Microcentro",
     "location": "Microcentro, CABA",
     "priceUSD": "85.000",
@@ -78,7 +78,7 @@
   },
   {
     "id": "prop8",
-    "image": "/placeholder.svg?height=400&width=600",
+    "image": "/placeholder.svg?height=400&width=600&text=Colegiales+Duplex",
     "title": "Duplex Moderno en Colegiales",
     "location": "Colegiales, CABA",
     "priceUSD": "290.000",
