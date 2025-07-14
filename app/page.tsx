@@ -20,8 +20,8 @@ export default async function HomePage() {
             La manera más inteligente de comprar tu primera propiedad
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            La inteligencia artificial de Techito analiza el mercado para revelarte las propiedades con el mayor
-            potencial de ahorro. Tu primera propiedad, al mejor precio.
+            Techito compara miles de propiedades y te muestra solo las oportunidades mas baratas del mercado. ¡Comprá
+            mejor, sin pagar de más!
           </p>
           <div className="bg-white rounded-lg shadow-md p-4 space-y-4 border border-techitoLightGray">
             <div className="grid grid-cols-3 gap-2">
