@@ -64,18 +64,20 @@ export default async function HomePage() {
                     <p className="text-sm text-gray-500 flex items-center gap-1">
                       <MapPin className="h-4 w-4 text-gray-400" /> {property.location}
                     </p>
-                    <p className="font-bold text-lg flex items-center gap-1">
-                      <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
-                    </p>
+                    <div className="flex justify-between items-center w-full">
+                      <p className="font-bold text-lg flex items-center gap-1">
+                        <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
+                      </p>
+                      {property.priceUVA && (
+                        <p className="font-bold text-lg flex items-center gap-1">
+                          <Wallet className="h-5 w-5 text-techitoPurple" /> UVA {property.priceUVA}
+                        </p>
+                      )}
+                    </div>
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
                       {property.coveredArea && (
                         <p className="flex items-center gap-1">
                           <Square className="h-4 w-4 text-gray-400" /> {property.coveredArea} m² cub.
-                        </p>
-                      )}
-                      {property.priceUVA && (
-                        <p className="flex items-center gap-1">
-                          <Wallet className="h-4 w-4 text-techitoPurple" /> UVA {property.priceUVA}
                         </p>
                       )}
                       {property.uncoveredArea && (
