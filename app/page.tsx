@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { FlameIcon as Fire, MapPin, DollarSign } from "lucide-react" // Added MapPin and DollarSign for potential future use or visual clarity
+import { Percent, MapPin, DollarSign } from "lucide-react" // Changed FlameIcon to Percent
 import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image"
@@ -38,7 +38,7 @@ export default async function HomePage() {
         {/* Featured Deals Section */}
         <section className="max-w-2xl mx-auto mb-12 md:mb-16">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Fire className="h-6 w-6 text-techitoPurple" /> Oportunidades destacadas
+            <Percent className="h-6 w-6 text-techitoPurple" /> Oportunidades destacadas
           </h2>
           <div className="space-y-4">
             {featuredProperties.map((property) => (
