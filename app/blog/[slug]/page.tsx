@@ -1,9 +1,10 @@
 import { Card } from "@/components/ui/card"
 import { getBlogPostBySlug } from "@/actions/properties"
 import { Button } from "@/components/ui/button"
-import { Home, Calendar, User, ChevronLeft } from "lucide-react"
+import { Calendar, User, ChevronLeft } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import Header from "@/components/header"
 
 interface BlogPostDetailPageProps {
   params: {
@@ -31,44 +32,7 @@ export default async function BlogPostDetailPage({ params }: BlogPostDetailPageP
   return (
     <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
       {/* Header (re-using the main header structure) */}
-      <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray">
-        <Link href="/" className="flex items-center gap-2">
-          <Home className="h-6 w-6 text-techitoPurple" />
-          <span className="text-xl font-bold">Techito</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            href="/como-funciona"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            ¿Cómo funciona?
-          </Link>
-          <Link
-            href="/precios"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Precios
-          </Link>
-          <Link
-            href="/preguntas"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Preguntas
-          </Link>
-          <Link
-            href="/blog"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/contacto"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Contacto
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="flex-1 p-6 md:p-10 max-w-3xl mx-auto">
         <Link href="/blog" className="flex items-center text-techitoPurple hover:underline mb-6">

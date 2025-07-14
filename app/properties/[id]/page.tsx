@@ -1,9 +1,11 @@
 import { getPropertyById } from "@/actions/properties"
 import { Button } from "@/components/ui/button"
-import { Home, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { GoogleMapsEmbed } from "@next/third-parties/google" // Import GoogleMapsEmbed
+import Header from "@/components/header"
+import { Home } from "lucide-react" // Import Home
 
 interface PropertyDetailPageProps {
   params: {
@@ -39,44 +41,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
   return (
     <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
       {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray">
-        <Link href="/" className="flex items-center gap-2">
-          <Home className="h-6 w-6 text-techitoPurple" />
-          <span className="text-xl font-bold">Techito</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            href="/como-funciona"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            ¿Cómo funciona?
-          </Link>
-          <Link
-            href="/precios"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Precios
-          </Link>
-          <Link
-            href="/preguntas"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Preguntas
-          </Link>
-          <Link
-            href="/blog"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/contacto"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Contacto
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="flex-1 p-6 md:p-10 max-w-md mx-auto">
         {/* Property Image */}

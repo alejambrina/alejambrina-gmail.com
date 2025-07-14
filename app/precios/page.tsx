@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Home, CheckCircle } from "lucide-react"
-import Link from "next/link"
+import { CheckCircle } from "lucide-react"
+import Header from "@/components/header"
 
 export default function PreciosPage() {
   const pricingPlans = [
@@ -46,44 +46,7 @@ export default function PreciosPage() {
   return (
     <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
       {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray">
-        <Link href="/" className="flex items-center gap-2">
-          <Home className="h-6 w-6 text-techitoPurple" />
-          <span className="text-xl font-bold">Techito</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            href="/como-funciona"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            ¿Cómo funciona?
-          </Link>
-          <Link
-            href="/precios"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Precios
-          </Link>
-          <Link
-            href="/preguntas"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Preguntas
-          </Link>
-          <Link
-            href="/blog"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/contacto"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Contacto
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full">
         <section className="text-center mb-12 md:mb-16">
