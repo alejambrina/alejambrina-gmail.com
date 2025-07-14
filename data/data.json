@@ -3,6 +3,11 @@
     {
       "id": "prop1",
       "image": "/images/departamento-palermo.png",
+      "images": [
+        "/images/departamento-palermo.png",
+        "/placeholder.svg?height=400&width=600&text=Palermo+Interior+1&bg=d1e7dd&color=0f5132",
+        "/placeholder.svg?height=400&width=600&text=Palermo+Interior+2&bg=d1e7dd&color=0f5132"
+      ],
       "title": "Departamento en Palermo",
       "location": "Palermo, CABA",
       "priceUSD": "180.000",
@@ -14,6 +19,11 @@
     {
       "id": "prop2",
       "image": "/images/casa-belgrano.jpeg",
+      "images": [
+        "/images/casa-belgrano.jpeg",
+        "/placeholder.svg?height=400&width=600&text=Belgrano+Interior+1&bg=cfe2ff&color=084298",
+        "/placeholder.svg?height=400&width=600&text=Belgrano+Interior+2&bg=cfe2ff&color=084298"
+      ],
       "title": "Casa con Jardín en Belgrano",
       "location": "Belgrano, CABA",
       "priceUSD": "320.000",
@@ -25,6 +35,11 @@
     {
       "id": "prop3",
       "image": "/images/ph-villa-crespo.webp",
+      "images": [
+        "/images/ph-villa-crespo.webp",
+        "/placeholder.svg?height=400&width=600&text=Villa+Crespo+Interior+1&bg=f8d7da&color=842029",
+        "/placeholder.svg?height=400&width=600&text=Villa+Crespo+Interior+2&bg=f8d7da&color=842029"
+      ],
       "title": "PH Luminoso en Villa Crespo",
       "location": "Villa Crespo, CABA",
       "priceUSD": "110.000",
@@ -36,6 +51,11 @@
     {
       "id": "prop4",
       "image": "/images/loft-recoleta.webp",
+      "images": [
+        "/images/loft-recoleta.webp",
+        "/placeholder.svg?height=400&width=600&text=Recoleta+Interior+1&bg=fff3cd&color=664d03",
+        "/placeholder.svg?height=400&width=600&text=Recoleta+Interior+2&bg=fff3cd&color=664d03"
+      ],
       "title": "Loft con Balcón en Recoleta",
       "location": "Recoleta, CABA",
       "priceUSD": "210.000",
@@ -47,6 +67,11 @@
     {
       "id": "prop5",
       "image": "/images/depto-caballito.webp",
+      "images": [
+        "/images/depto-caballito.webp",
+        "/placeholder.svg?height=400&width=600&text=Caballito+Interior+1&bg=d1e7dd&color=0f5132",
+        "/placeholder.svg?height=400&width=600&text=Caballito+Interior+2&bg=d1e7dd&color=0f5132"
+      ],
       "title": "Departamento a Estrenar en Caballito",
       "location": "Caballito, CABA",
       "priceUSD": "185.000",
@@ -58,6 +83,11 @@
     {
       "id": "prop6",
       "image": "/images/casa-san-telmo.webp",
+      "images": [
+        "/images/casa-san-telmo.webp",
+        "/placeholder.svg?height=400&width=600&text=San+Telmo+Interior+1&bg=cfe2ff&color=084298",
+        "/placeholder.svg?height=400&width=600&text=San+Telmo+Interior+2&bg=cfe2ff&color=084298"
+      ],
       "title": "Casa Antigua en San Telmo",
       "location": "San Telmo, CABA",
       "priceUSD": "250.000",
@@ -69,6 +99,11 @@
     {
       "id": "prop7",
       "image": "/placeholder.svg?height=300&width=400&text=Monoambiente+Centro&bg=f8fafc&color=4a5568",
+      "images": [
+        "/placeholder.svg?height=300&width=400&text=Monoambiente+Centro&bg=f8fafc&color=4a5568",
+        "/placeholder.svg?height=400&width=600&text=Microcentro+Interior+1&bg=f8d7da&color=842029",
+        "/placeholder.svg?height=400&width=600&text=Microcentro+Interior+2&bg=f8d7da&color=842029"
+      ],
       "title": "Monoambiente con Vista en Microcentro",
       "location": "Microcentro, CABA",
       "priceUSD": "85.000",
@@ -80,6 +115,11 @@
     {
       "id": "prop8",
       "image": "/images/duplex-colegiales.webp",
+      "images": [
+        "/images/duplex-colegiales.webp",
+        "/placeholder.svg?height=400&width=600&text=Colegiales+Interior+1&bg=fff3cd&color=664d03",
+        "/placeholder.svg?height=400&width=600&text=Colegiales+Interior+2&bg=fff3cd&color=664d03"
+      ],
       "title": "Duplex Moderno en Colegiales",
       "location": "Colegiales, CABA",
       "priceUSD": "290.000",

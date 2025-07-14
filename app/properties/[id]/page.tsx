@@ -1,11 +1,14 @@
+"use client" // Make this a client component to use useState
+
 import { getPropertyById } from "@/actions/properties"
 import { Button } from "@/components/ui/button"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, ChevronLeft, Circle } from "lucide-react" // Added Circle for dots
 import Image from "next/image"
 import Link from "next/link"
-import { GoogleMapsEmbed } from "@next/third-parties/google" // Import GoogleMapsEmbed
+import { GoogleMapsEmbed } from "@next/third-parties/google"
 import Header from "@/components/header"
-import { Home } from "lucide-react" // Import Home
+import { Home } from "lucide-react"
+import { useState, useEffect } from "react" // Import useState and useEffect
 
 interface PropertyDetailPageProps {
   params: {
@@ -13,21 +16,35 @@ interface PropertyDetailPageProps {
   }
 }
 
-export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
-  const property = await getPropertyById(params.id)
+export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
+  const [property, setProperty] = useState<any>(null) // Use any for now, or define Property type
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    const fetchProperty = async () => {
+      const fetchedProperty = await getPropertyById(params.id)
+      setProperty(fetchedProperty)
+    }
+    fetchProperty()
+  }, [params.id])
 
   if (!property) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-techitoBackground text-techitoText p-6">
-        <h1 className="text-4xl font-bold mb-4">Propiedad no encontrada</h1>
-        <p className="text-lg text-gray-600 mb-8">Lo sentimos, la propiedad que buscas no existe o fue vendida.</p>
-        <Link href="/">
-          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold">
-            Volver al inicio
-          </Button>
-        </Link>
+        <h1 className="text-4xl font-bold mb-4">Cargando propiedad...</h1>
+        <p className="text-lg text-gray-600 mb-8">Por favor, espera un momento.</p>
       </div>
     )
+  }
+
+  const images = property.images || [property.image] // Use images array, fallback to single image
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
   }
 
   // Dummy data for "Otras oportunidades cerca"
@@ -44,9 +61,47 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
       <Header />
 
       <main className="flex-1 p-6 md:p-10 max-w-md mx-auto">
-        {/* Property Image */}
+        {/* Property Image Carousel */}
         <div className="relative w-full h-64 rounded-lg overflow-hidden mb-6 shadow-md border border-techitoLightGray">
-          <Image src={property.image || "/placeholder.svg"} alt={property.title} layout="fill" objectFit="cover" />
+          <Image
+            src={images[currentImageIndex] || "/placeholder.svg"}
+            alt={`${property.title} - Imagen ${currentImageIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            priority={currentImageIndex === 0} // Prioritize the first image
+          />
+          {images.length > 1 && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/70 text-techitoPurple rounded-full"
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/70 text-techitoPurple rounded-full"
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Button>
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                {images.map((_, index) => (
+                  <Circle
+                    key={index}
+                    className={`h-2 w-2 ${
+                      index === currentImageIndex ? "text-techitoPurple" : "text-gray-300"
+                    } fill-current`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Property Details */}
