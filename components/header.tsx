@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Menu, HelpCircle, DollarSign, BookOpen, Mail, Lightbulb } from "lucide-react" // Import new icons
+import { Home, Menu, Sparkles, DollarSign, HelpCircle, BookOpen, Mail } from "lucide-react" // Import new icons
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
@@ -11,7 +11,7 @@ export default function Header() {
   const pathname = usePathname()
 
   const navLinks = [
-    { href: "/como-funciona", label: "¿Cómo funciona?", icon: Lightbulb }, // Changed to Lightbulb for "How it works"
+    { href: "/como-funciona", label: "¿Cómo funciona?", icon: Sparkles },
     { href: "/precios", label: "Precios", icon: DollarSign },
     { href: "/preguntas", label: "Preguntas", icon: HelpCircle },
     { href: "/blog", label: "Blog", icon: BookOpen },
@@ -32,7 +32,7 @@ export default function Header() {
             key={link.href}
             href={link.href}
             className={cn(
-              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors flex items-center gap-1", // Added flex and gap
+              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors flex items-center gap-1",
               pathname === link.href && "text-techitoPurple font-semibold",
             )}
           >
