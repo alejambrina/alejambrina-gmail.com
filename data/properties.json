@@ -1,7 +1,7 @@
 [
   {
     "id": "prop1",
-    "image": "/images/departamento-palermo.png",
+    "image": "/placeholder.svg?height=400&width=600&text=Departamento+Moderno&bg=d1e7dd&color=0f5132",
     "title": "Departamento en Palermo",
     "location": "Palermo, CABA",
     "priceUSD": "180.000",
@@ -12,7 +12,7 @@
   },
   {
     "id": "prop2",
-    "image": "/images/casa-belgrano.jpeg",
+    "image": "/placeholder.svg?height=400&width=600&text=Casa+con+Jardín&bg=cfe2ff&color=084298",
     "title": "Casa con Jardín en Belgrano",
     "location": "Belgrano, CABA",
     "priceUSD": "320.000",
@@ -23,7 +23,7 @@
   },
   {
     "id": "prop3",
-    "image": "/placeholder.svg?height=300&width=400&text=PH+Villa+Crespo&bg=f7fafc&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=PH+Luminoso&bg=f8d7da&color=842029",
     "title": "PH Luminoso en Villa Crespo",
     "location": "Villa Crespo, CABA",
     "priceUSD": "110.000",
@@ -34,7 +34,7 @@
   },
   {
     "id": "prop4",
-    "image": "/placeholder.svg?height=300&width=400&text=Loft+Recoleta&bg=fef5e7&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=Loft+con+Balcón&bg=fff3cd&color=664d03",
     "title": "Loft con Balcón en Recoleta",
     "location": "Recoleta, CABA",
     "priceUSD": "210.000",
@@ -45,7 +45,7 @@
   },
   {
     "id": "prop5",
-    "image": "/placeholder.svg?height=300&width=400&text=Depto+Caballito&bg=f0fff4&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=Depto+a+Estrenar&bg=d1e7dd&color=0f5132",
     "title": "Departamento a Estrenar en Caballito",
     "location": "Caballito, CABA",
     "priceUSD": "185.000",
@@ -56,7 +56,7 @@
   },
   {
     "id": "prop6",
-    "image": "/placeholder.svg?height=300&width=400&text=Casa+San+Telmo&bg=fdf2f8&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=Casa+Antigua&bg=cfe2ff&color=084298",
     "title": "Casa Antigua en San Telmo",
     "location": "San Telmo, CABA",
     "priceUSD": "250.000",
@@ -67,7 +67,7 @@
   },
   {
     "id": "prop7",
-    "image": "/placeholder.svg?height=300&width=400&text=Monoambiente+Centro&bg=f8fafc&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=Monoambiente+Vista&bg=f8d7da&color=842029",
     "title": "Monoambiente con Vista en Microcentro",
     "location": "Microcentro, CABA",
     "priceUSD": "85.000",
@@ -78,7 +78,7 @@
   },
   {
     "id": "prop8",
-    "image": "/placeholder.svg?height=300&width=400&text=Duplex+Colegiales&bg=f0f4f8&color=4a5568",
+    "image": "/placeholder.svg?height=400&width=600&text=Duplex+Moderno&bg=fff3cd&color=664d03",
     "title": "Duplex Moderno en Colegiales",
     "location": "Colegiales, CABA",
     "priceUSD": "290.000",
