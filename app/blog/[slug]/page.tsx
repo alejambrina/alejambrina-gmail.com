@@ -44,22 +44,22 @@ export default async function BlogPostDetailPage({ params }: BlogPostDetailPageP
             ¿Cómo funciona?
           </Link>
           <Link
+            href="/precios"
+            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
+          >
+            Precios
+          </Link>
+          <Link
+            href="/preguntas"
+            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
+          >
+            Preguntas
+          </Link>
+          <Link
             href="/blog"
             className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
           >
             Blog
-          </Link>
-          <Link
-            href="/cotizador"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Cotizador
-          </Link>
-          <Link
-            href="/oportunidades"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Oportunidades
           </Link>
         </nav>
       </header>

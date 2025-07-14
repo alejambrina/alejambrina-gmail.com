@@ -63,6 +63,12 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           >
             Preguntas
           </Link>
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
+          >
+            Blog
+          </Link>
         </nav>
       </header>
 
