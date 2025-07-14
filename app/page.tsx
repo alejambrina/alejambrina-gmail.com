@@ -44,9 +44,9 @@ export default async function HomePage() {
             {featuredProperties.map((property) => (
               <Link href={`/properties/${property.id}`} key={property.id}>
                 <Card className="bg-white border border-techitoLightGray shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden">
-                  <div className="relative w-full h-48">
+                  <div className="relative w-full h-40">
                     {" "}
-                    {/* Increased height for image */}
+                    {/* Adjusted height for image */} {/* Increased height for image */}
                     <Image
                       src={property.image || "/placeholder.svg?height=192&width=384&text=🏠&bg=f3f4f6&color=6b7280"}
                       alt={property.title}
