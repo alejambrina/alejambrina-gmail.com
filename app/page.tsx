@@ -65,7 +65,7 @@ export default async function HomePage() {
                     <p className="text-sm text-gray-500 flex items-center gap-1">
                       <MapPin className="h-4 w-4 text-gray-400" /> {property.location}
                     </p>
-                    <div className="flex items-center gap-4 w-full">
+                    <div className="flex items-center gap-8 w-full">
                       <p className="font-bold text-lg flex items-center gap-1">
                         <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
                       </p>
