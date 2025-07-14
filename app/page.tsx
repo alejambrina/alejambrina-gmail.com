@@ -6,6 +6,7 @@ import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image"
 import Header from "@/components/header"
+import Footer from "@/components/footer"
 
 export default async function HomePage() {
   const featuredProperties = ((await getProperties()) ?? []).slice(0, 2)
@@ -115,20 +116,8 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
-
-        {/* Simplified Footer Links (keeping the original footer links as they are not in the image) */}
-        <section className="max-w-2xl mx-auto text-center text-sm text-gray-600 space-x-4 mt-12">
-          <Link href="#" className="hover:underline">
-            Cómo funciona
-          </Link>
-          <Link href="#" className="hover:underline">
-            Preguntas
-          </Link>
-          <Link href="#" className="hover:underline">
-            Cotizador de propiedades
-          </Link>
-        </section>
       </main>
+      <Footer />
     </div>
   )
 }
