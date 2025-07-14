@@ -1,7 +1,7 @@
 [
   {
     "id": "prop1",
-    "image": "/placeholder.svg?height=400&width=600&text=Palermo+Moderno",
+    "image": "/images/palermo-moderno.png",
     "title": "Departamento Moderno en Palermo",
     "location": "Palermo, CABA",
     "priceUSD": "150.000",
