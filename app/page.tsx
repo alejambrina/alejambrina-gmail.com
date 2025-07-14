@@ -49,7 +49,7 @@ export default async function HomePage() {
         {/* Hero Search Section */}
         <section className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
-            Encontrá tu techito ideal <br /> pagando lo menos posible
+            La manera más inteligente de comprar tu primera propiedad
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             Techito compara miles de propiedades y te muestra solo las oportunidades mas baratas del mercado. ¡Comprá
