@@ -182,9 +182,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               loading="lazy"
             />
           </div>
-          <p className="text-gray-500 text-sm mt-2">
-            Para ver el mapa, reemplaza "YOUR_GOOGLE_MAPS_API_KEY" con tu clave de API de Google Maps.
-          </p>
         </div>
       </main>
     </div>
