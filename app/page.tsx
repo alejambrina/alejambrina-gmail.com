@@ -64,12 +64,14 @@ export default async function HomePage() {
                     <p className="text-sm text-gray-500 flex items-center gap-1">
                       <MapPin className="h-4 w-4 text-gray-400" /> {property.location}
                     </p>
-                    <p className="font-bold text-lg flex items-center gap-1">
-                      <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
-                    </p>
-                    <p className="font-bold text-lg flex items-center gap-1">
-                      <Wallet className="h-5 w-5 text-techitoPurple" /> UVA {property.priceUVA}
-                    </p>
+                    <div className="flex items-center justify-between w-full">
+                      <p className="font-bold text-lg flex items-center gap-1">
+                        <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
+                      </p>
+                      <p className="font-bold text-lg flex items-center gap-1">
+                        <Wallet className="h-5 w-5 text-techitoPurple" /> UVA {property.priceUVA}
+                      </p>
+                    </div>
                     {/* Inside the CardContent for each property, add the following details:
                   // After the price paragraph: */}
                     <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
