@@ -14,8 +14,8 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="mailto:hola@choiz.com.mx" className="hover:text-techitoPurple transition-colors">
-                hola@choiz.com.mx
+              <a href="mailto:hola@techito.com.ar" className="hover:text-techitoPurple transition-colors">
+                hola@techito.com.ar
               </a>
             </li>
           </ul>
