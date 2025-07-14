@@ -95,7 +95,7 @@ export default async function HomePage() {
                       <p className="font-semibold text-lg">{property.title}</p>
                       <p className="text-sm text-gray-500 mb-2">Precio: USD {property.priceUSD}</p>
                       <span className="bg-techitoPurple text-white text-xs font-semibold px-2 py-1 rounded-full inline-block">
-                        {property.id === "prop1" ? "28% debajo del promedio" : "35% bajo mercado"}
+                        {property.id === "prop1" ? "19% debajo del promedio" : "35% bajo mercado"}
                       </span>
                     </div>
                   </CardContent>
