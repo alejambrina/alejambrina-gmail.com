@@ -9,11 +9,6 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-white mb-4">Contáctanos</h3>
           <ul className="space-y-2">
             <li>
-              <a href="tel:+525658108436" className="hover:text-techitoPurple transition-colors">
-                +52 565 810 8436
-              </a>
-            </li>
-            <li>
               <a href="mailto:hola@techito.com.ar" className="hover:text-techitoPurple transition-colors">
                 hola@techito.com.ar
               </a>
