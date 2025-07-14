@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Home, ChevronRight } from "lucide-react"
+import { Home } from "lucide-react"
 import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image" // Import Image component
@@ -25,30 +25,27 @@ export default async function HomePage() {
             ¿Cómo funciona?
           </Link>
           <Link
-            href="/blog"
+            href="/precios"
             className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
           >
-            Blog
+            Precios
           </Link>
-          <Link
-            href="/cotizador"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Cotizador
-          </Link>
-          <Link
-            href="/oportunidades"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Oportunidades
-          </Link>
+          <Button variant="ghost" className="text-techitoText hover:bg-techitoPurple/10">
+            Iniciar sesión
+          </Button>
         </nav>
       </header>
 
       <main className="flex-1 p-6 md:p-10">
         {/* Hero Search Section */}
         <section className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-8">Encontrá tu techito ideal</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8">
+            Encontrá tu techito ideal <br /> en Capital pagando lo menos posible
+          </h1>
+          <p className="text-lg text-gray-600 mb-8">
+            Techito compara miles de propiedades y te muestra solo las oportunidades mas baratas del mercado. ¡Comprá
+            mejor, sin pagar de más!
+          </p>
           <div className="bg-white rounded-lg shadow-md p-4 space-y-4 border border-techitoLightGray">
             <div className="grid grid-cols-3 gap-2">
               <Button className="bg-techitoLightGray text-techitoText hover:bg-techitoLightGray/80">Barrio</Button>
@@ -56,7 +53,7 @@ export default async function HomePage() {
               <Button className="bg-techitoLightGray text-techitoText hover:bg-techitoLightGray/80">Precio máx.</Button>
             </div>
             <Button className="w-full bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 rounded-md shadow-md">
-              Buscar
+              Buscar oportunidades
             </Button>
           </div>
         </section>
@@ -64,32 +61,30 @@ export default async function HomePage() {
         {/* Featured Deals Section */}
         <section className="max-w-2xl mx-auto mb-12 md:mb-16">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Home className="h-6 w-6 text-techitoPurple" /> Gangas destacadas:
+            <Home className="h-6 w-6 text-techitoPurple" /> Gangas destacadas hoy
           </h2>
           <div className="space-y-4">
             {featuredProperties.map((property) => (
               <Link href={`/properties/${property.id}`} key={property.id}>
                 <Card className="bg-white border border-techitoLightGray shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      {/* Replaced Home icon with Image */}
-                      <div className="relative w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
-                        <Image
-                          src={property.image || "/placeholder.svg"}
-                          alt={property.title}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-lg">{property.title.split(" en ")[0]}</p>
-                        <p className="text-sm text-gray-500">{property.location}</p>
-                        <p className="text-sm text-techitoGreen font-medium">
-                          {property.creditEligible ? "Apta crédito" : "No apta crédito"}
-                        </p>
-                      </div>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="relative w-24 h-24 rounded-md overflow-hidden flex-shrink-0">
+                      <Image
+                        src={property.image || "/placeholder.svg"}
+                        alt={property.title}
+                        layout="fill"
+                        objectFit="cover"
+                      />
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                    <div className="flex-grow">
+                      <p className="font-semibold text-lg">{property.title.split(" en ")[0]}</p>
+                      <p className="text-sm text-gray-500">
+                        ${property.priceUSD} - ${property.priceARS}
+                      </p>
+                      <span className="bg-techitoPurple text-white text-xs font-semibold px-2 py-1 rounded-full mt-2 inline-block">
+                        35% bajo mercado
+                      </span>
+                    </div>
                   </CardContent>
                 </Card>
               </Link>
@@ -97,7 +92,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Simplified Footer Links */}
+        {/* Simplified Footer Links (keeping the original footer links as they are not in the image) */}
         <section className="max-w-2xl mx-auto text-center text-sm text-gray-600 space-x-4 mt-12">
           <Link href="#" className="hover:underline">
             Cómo funciona

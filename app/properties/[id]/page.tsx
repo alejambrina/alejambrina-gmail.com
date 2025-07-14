@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Home, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { GoogleMapsEmbed } from "@next/third-parties/google" // Import GoogleMapsEmbed
 
 interface PropertyDetailPageProps {
   params: {
@@ -51,23 +52,14 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
             ¿Cómo funciona?
           </Link>
           <Link
-            href="/blog"
+            href="/precios"
             className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
           >
-            Blog
+            Precios
           </Link>
-          <Link
-            href="/cotizador"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Cotizador
-          </Link>
-          <Link
-            href="/oportunidades"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Oportunidades
-          </Link>
+          <Button variant="ghost" className="text-techitoText hover:bg-techitoPurple/10">
+            Iniciar sesión
+          </Button>
         </nav>
       </header>
 
@@ -142,9 +134,8 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           </Button>
         </section>
 
-        {/* Map Placeholder (if needed, based on previous request) */}
-        {/* You can uncomment and integrate the GoogleMapsEmbed here if you want it on the detail page */}
-        {/* <div className="space-y-2 mt-8">
+        {/* Map Placeholder */}
+        <div className="space-y-2 mt-8">
           <h2 className="text-2xl font-semibold text-techitoText">Ubicación en el mapa</h2>
           <div className="rounded-lg overflow-hidden border border-techitoLightGray">
             <GoogleMapsEmbed
@@ -159,7 +150,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           <p className="text-gray-500 text-sm mt-2">
             Para ver el mapa, reemplaza "YOUR_GOOGLE_MAPS_API_KEY" con tu clave de API de Google Maps.
           </p>
-        </div> */}
+        </div>
       </main>
     </div>
   )

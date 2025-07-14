@@ -24,23 +24,14 @@ export default async function BlogPage() {
             ¿Cómo funciona?
           </Link>
           <Link
-            href="/blog"
+            href="/precios"
             className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
           >
-            Blog
+            Precios
           </Link>
-          <Link
-            href="/cotizador"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Cotizador
-          </Link>
-          <Link
-            href="/oportunidades"
-            className="text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors"
-          >
-            Oportunidades
-          </Link>
+          <Button variant="ghost" className="text-techitoText hover:bg-techitoPurple/10">
+            Iniciar sesión
+          </Button>
         </nav>
       </header>
 
