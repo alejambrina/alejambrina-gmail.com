@@ -80,6 +80,11 @@ export default async function HomePage() {
                           <Square className="h-4 w-4 text-gray-400" /> {property.coveredArea} m² cub.
                         </p>
                       )}
+                      {property.priceUVA && (
+                        <p className="flex items-center gap-1">
+                          <Wallet className="h-4 w-4 text-techitoPurple" /> UVA {property.priceUVA}
+                        </p>
+                      )}
                       {property.uncoveredArea && (
                         <p className="flex items-center gap-1">
                           <Square className="h-4 w-4 text-gray-400" /> {property.uncoveredArea} m² desc.
