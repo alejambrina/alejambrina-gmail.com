@@ -70,7 +70,7 @@ export default async function HomePage() {
         {/* Featured Deals Section */}
         <section className="max-w-2xl mx-auto mb-12 md:mb-16">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Home className="h-6 w-6 text-techitoPurple" /> Gangas destacadas hoy
+            <Home className="h-6 w-6 text-techitoPurple" /> Oportunidades destacadas
           </h2>
           <div className="space-y-4">
             {featuredProperties.map((property) => (
