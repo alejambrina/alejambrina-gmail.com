@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12 px-6 md:px-10">
+    <footer className="bg-[#1A1A1A] text-gray-300 py-12 px-6 md:px-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Contacto Section */}
         <div>
