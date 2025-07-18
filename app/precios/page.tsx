@@ -94,65 +94,8 @@ export default function PreciosPage() {
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {pricingPlans.map((plan) => (
-            <Card
-              key={plan.name}
-              className={`bg-white border shadow-lg rounded-lg flex flex-col relative ${
-                plan.highlight
-                  ? "border-techitoPurple ring-2 ring-techitoPurple scale-105 lg:scale-110"
-                  : "border-techitoLightGray"
-              }`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-techitoPurple text-white px-4 py-1 rounded-full text-sm font-semibold">
-                    Más Popular
-                  </span>
-                </div>
-              )}
-
-              <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl font-bold text-techitoPurple">{plan.name}</CardTitle>
-                <CardDescription className="text-gray-600 mb-4">{plan.description}</CardDescription>
-                <div className="text-4xl font-extrabold text-techitoText">{plan.price}</div>
-              </CardHeader>
-
-              <CardContent className="flex-1 px-6 py-4">
-                <div className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-techitoGreen flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
-                    </div>
-                  ))}
-
-                  {plan.notIncluded.map((feature, index) => (
-                    <div key={`not-${index}`} className="flex items-start gap-3 opacity-40">
-                      <X className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-500 text-sm leading-relaxed line-through">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-
-              <CardFooter className="p-6 pt-0">
-                <Button
-                  className={`w-full font-semibold py-3 rounded-md shadow-md ${
-                    plan.highlight
-                      ? "bg-techitoPurple hover:bg-techitoPurple/90 text-white"
-                      : "bg-white border-2 border-techitoPurple text-techitoPurple hover:bg-techitoPurple/10"
-                  }`}
-                >
-                  {plan.buttonText}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-
-        {/* Additional Information Section */}
-        <section className="bg-white rounded-lg shadow-md p-8 border border-techitoLightGray">
+        {/* How it works section */}
+        <section className="bg-white rounded-lg shadow-md p-8 border border-techitoLightGray mb-12">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-8">¿Cómo funciona nuestro análisis?</h2>
 
@@ -224,6 +167,63 @@ export default function PreciosPage() {
             </div>
           </div>
         </section>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          {pricingPlans.map((plan) => (
+            <Card
+              key={plan.name}
+              className={`bg-white border shadow-lg rounded-lg flex flex-col relative ${
+                plan.highlight
+                  ? "border-techitoPurple ring-2 ring-techitoPurple scale-105 lg:scale-110"
+                  : "border-techitoLightGray"
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-techitoPurple text-white px-4 py-1 rounded-full text-sm font-semibold">
+                    Más Popular
+                  </span>
+                </div>
+              )}
+
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-2xl font-bold text-techitoPurple">{plan.name}</CardTitle>
+                <CardDescription className="text-gray-600 mb-4">{plan.description}</CardDescription>
+                <div className="text-4xl font-extrabold text-techitoText">{plan.price}</div>
+              </CardHeader>
+
+              <CardContent className="flex-1 px-6 py-4">
+                <div className="space-y-3">
+                  {plan.features.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-techitoGreen flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
+                    </div>
+                  ))}
+
+                  {plan.notIncluded.map((feature, index) => (
+                    <div key={`not-${index}`} className="flex items-start gap-3 opacity-40">
+                      <X className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-500 text-sm leading-relaxed line-through">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardFooter className="p-6 pt-0">
+                <Button
+                  className={`w-full font-semibold py-3 rounded-md shadow-md ${
+                    plan.highlight
+                      ? "bg-techitoPurple hover:bg-techitoPurple/90 text-white"
+                      : "bg-white border-2 border-techitoPurple text-techitoPurple hover:bg-techitoPurple/10"
+                  }`}
+                >
+                  {plan.buttonText}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
 
         {/* Coverage Limitation Notice */}
         <section className="bg-gray-50 rounded-lg p-6 border border-gray-200 mt-8">
