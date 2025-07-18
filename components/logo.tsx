@@ -1,11 +1,17 @@
 import Link from "next/link"
-import { Home } from "lucide-react"
+import Image from "next/image"
 
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2">
-      <Home className="h-6 w-6 text-techitoPurple" />
-      <span className="text-xl font-black text-techitoText">Techito</span>
+    <Link href="/" className="flex items-center">
+      <Image
+        src="/images/techito-logo.png"
+        alt="Techito Logo"
+        width={120}
+        height={40}
+        className="h-8 w-auto"
+        priority
+      />
     </Link>
   )
 }
