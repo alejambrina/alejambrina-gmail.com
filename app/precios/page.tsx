@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { CheckCircle, X, MapPin } from "lucide-react"
+import { CheckCircle, X, MapPin, Search, DollarSign, Handshake, Key } from "lucide-react"
 import Header from "@/components/header"
 
 export default function PreciosPage() {
@@ -94,75 +94,83 @@ export default function PreciosPage() {
           </div>
         </section>
 
-        {/* How it works section */}
+        {/* How Techito Works section - moved from /como-funciona */}
         <section className="bg-white rounded-lg shadow-md p-8 border border-techitoLightGray mb-12">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-8">¿Cómo funciona nuestro análisis?</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">¿Cómo funciona Techito?</h2>
+            <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+              Simplificamos el proceso de compra de propiedades para que encuentres tu hogar ideal al mejor precio.
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-techitoPurple text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">
-                    1
+              <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
+                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                  <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
+                    <Search className="h-6 w-6" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Envías la propiedad</h3>
-                    <p className="text-gray-600">
-                      Nos compartes el link o los datos de la propiedad de Capital Federal que te interesa analizar.
-                    </p>
-                  </div>
-                </div>
+                  <CardTitle className="text-xl font-semibold">1. Buscamos las mejores oportunidades</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 py-4 text-gray-700">
+                  <p>
+                    Nuestros algoritmos rastrean miles de propiedades en el mercado para identificar aquellas con el
+                    mayor potencial de ahorro. No te mostramos todo, solo lo que realmente vale la pena.
+                  </p>
+                </CardContent>
+              </Card>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-techitoPurple text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">
-                    2
+              <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
+                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                  <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
+                    <DollarSign className="h-6 w-6" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Analizamos en profundidad</h3>
-                    <p className="text-gray-600">
-                      Nuestros expertos realizan un análisis completo usando datos de mercado de CABA y herramientas
-                      especializadas.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                  <CardTitle className="text-xl font-semibold">2. Analizamos el valor real</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 py-4 text-gray-700">
+                  <p>
+                    Comparamos cada propiedad con datos históricos y de mercado para determinar su valor justo. Así,
+                    podemos calcular el porcentaje de ahorro real que obtendrías.
+                  </p>
+                </CardContent>
+              </Card>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-techitoPurple text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">
-                    3
+              <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
+                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                  <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
+                    <Handshake className="h-6 w-6" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Recibes el reporte</h3>
-                    <p className="text-gray-600">
-                      Te entregamos un reporte detallado con toda la información en 24-48 horas.
-                    </p>
-                  </div>
-                </div>
+                  <CardTitle className="text-xl font-semibold">3. Te conectamos con el vendedor</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 py-4 text-gray-700">
+                  <p>
+                    Una vez que encuentres una propiedad que te interese, te facilitamos el contacto directo con el
+                    vendedor o su representante, sin intermediarios innecesarios.
+                  </p>
+                </CardContent>
+              </Card>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-techitoPurple text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm flex-shrink-0">
-                    4
+              <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
+                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                  <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
+                    <Key className="h-6 w-6" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Tomas la mejor decisión</h3>
-                    <p className="text-gray-600">
-                      Con toda la información necesaria, puedes decidir con confianza si comprar o seguir buscando.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                  <CardTitle className="text-xl font-semibold">4. Acompañamiento hasta la compra</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 py-4 text-gray-700">
+                  <p>
+                    Te brindamos herramientas y asesoramiento para que puedas negociar el mejor precio y te acompañamos
+                    en cada etapa del proceso, desde la visita hasta la firma.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="text-center mt-8">
+            <div className="text-center mt-12">
+              <h3 className="text-2xl font-bold mb-4">¿Listo para encontrar tu techito ideal?</h3>
               <p className="text-gray-600 mb-6">
-                ¿Tienes dudas sobre qué análisis elegir? Nuestro equipo te ayuda a decidir.
+                Nuestros análisis te ayudan a tomar la mejor decisión de compra con información precisa y confiable.
               </p>
-              <Button
-                variant="outline"
-                className="border-techitoPurple text-techitoPurple hover:bg-techitoPurple/10 py-3 px-8 rounded-md bg-transparent"
-              >
-                Consultar con un experto
+              <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 px-8 rounded-md shadow-md">
+                Explorar Oportunidades
               </Button>
             </div>
           </div>
