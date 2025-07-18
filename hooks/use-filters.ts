@@ -1,17 +1,17 @@
 "use client"
 
 /**
- * Centralised filter state for the site.
- * – URL-safe and localStorage-persisted
- * – Memoised helpers to avoid render loops
+ * Centralised filter state for Techito.
+ * – Keeps helpers stable to avoid render loops
+ * – Persists to localStorage and the URL so filters survive refresh / share
  */
 
 import { useCallback, useEffect, useReducer } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-/* ------------------------------------------------------------------ */
-/* Types & defaults                                                   */
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────────── */
+/* Types & defaults                                                  */
+/* ────────────────────────────────────────────────────────────────── */
 export interface Filters {
   location: string
   minPrice: number
@@ -34,9 +34,9 @@ const DEFAULT_FILTERS: Filters = {
   sortBy: "price-asc",
 }
 
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────────── */
 /* Reducer                                                            */
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────────── */
 type Action = { type: "update"; payload: Partial<Filters> } | { type: "replace"; payload: Filters } | { type: "clear" }
 
 function reducer(state: Filters, action: Action): Filters {
@@ -52,20 +52,19 @@ function reducer(state: Filters, action: Action): Filters {
   }
 }
 
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────────── */
 /* Hook                                                               */
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────────── */
 export function useFilters() {
   const router = useRouter()
   const search = useSearchParams()
-
   const [filters, dispatch] = useReducer(reducer, DEFAULT_FILTERS)
 
-  /* -------- initialise from URL or localStorage (run once) -------- */
+  /* ------------ Initialise once from URL or localStorage ---------- */
   useEffect(() => {
     let initial: Partial<Filters> = {}
 
-    // 1) URL params
+    // 1. URL
     if (search.size) {
       initial = {
         location: search.get("location") ?? "",
@@ -78,7 +77,7 @@ export function useFilters() {
         sortBy: (search.get("sortBy") as Filters["sortBy"]) ?? "price-asc",
       }
     } else {
-      // 2) localStorage fallback
+      // 2. localStorage fallback
       try {
         const saved = localStorage.getItem("techito:filters")
         if (saved) initial = JSON.parse(saved)
@@ -89,9 +88,9 @@ export function useFilters() {
 
     dispatch({ type: "replace", payload: { ...DEFAULT_FILTERS, ...initial } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // ← run only once
+  }, [])
 
-  /* ---------------- helper callbacks (stable identities) ---------- */
+  /* ---------------- Helper callbacks (stable) --------------------- */
   const updateFilters = useCallback((payload: Partial<Filters>) => {
     dispatch({ type: "update", payload })
   }, [])
@@ -108,13 +107,13 @@ export function useFilters() {
     return c
   }, [filters])
 
-  /* ------------- persist to URL & localStorage on change ---------- */
+  /* -------------- Persist to URL + localStorage on change --------- */
   useEffect(() => {
     // localStorage
     try {
       localStorage.setItem("techito:filters", JSON.stringify(filters))
     } catch {
-      /* ignore quota / SSR */
+      /* ignore quota errors */
     }
 
     // URL (only non-default values)
