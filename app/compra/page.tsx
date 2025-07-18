@@ -11,7 +11,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Search } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import {
   Pagination,
   PaginationContent,
@@ -47,32 +47,19 @@ const categories = [
 ]
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  // 1) Lee los valores iniciales desde la URL
+  const initialSearch = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : undefined
+
+  const [filters, setFilters] = useState<Filters>({
+    search: initialSearch?.get("search") || "",
+    category: initialSearch?.get("category") || "",
+  })
+  const [page, setPage] = useState(Number(initialSearch?.get("page") || 1))
+  const [pageSize, setPageSize] = useState(Number(initialSearch?.get("pageSize") || 10))
   const [totalCount, setTotalCount] = useState(0)
-  const [filters, setFilters] = useState<Filters>({})
+  const [products, setProducts] = useState<Product[]>([])
   const router = useRouter()
-  const searchParams = useSearchParams()
   const { toast } = useToast()
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams)
-    if (filters.search) {
-      params.set("search", filters.search)
-    } else {
-      params.delete("search")
-    }
-    if (filters.category) {
-      params.set("category", filters.category)
-    } else {
-      params.delete("category")
-    }
-    params.set("page", page.toString())
-    params.set("pageSize", pageSize.toString())
-
-    router.push(`/compra?${params.toString()}`)
-  }, [filters, page, pageSize, router, searchParams])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,6 +112,22 @@ export default function Page() {
   }
 
   const pageCount = Math.ceil(totalCount / pageSize)
+
+  // Sincroniza los estados actuales con la URL solo si hay cambios reales
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (filters.search) params.set("search", filters.search)
+    if (filters.category) params.set("category", filters.category)
+    params.set("page", String(page))
+    params.set("pageSize", String(pageSize))
+
+    const newQuery = params.toString()
+    const currentQuery = window.location.search.replace(/^\?/, "")
+
+    if (newQuery !== currentQuery) {
+      router.replace(`/compra${newQuery ? `?${newQuery}` : ""}`, { scroll: false })
+    }
+  }, [filters, page, pageSize, router])
 
   return (
     <div className="container mx-auto py-10">
