@@ -1,0 +1,21 @@
+{
+  "name": "Techito - Tu plataforma inmobiliaria inteligente",
+  "short_name": "Techito",
+  "description": "Encuentra tu techito ideal con análisis inteligente de propiedades",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F8F8",
+  "theme_color": "#22C55E",
+  "icons": [
+    {
+      "src": "/images/techito-logo-green.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/techito-logo-green.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

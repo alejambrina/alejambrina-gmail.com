@@ -1,18 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { getProperties } from "@/actions/properties"
+import { useState, useEffect, Suspense } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Square, Bed, Bath, Car, Wallet, Sparkles, Filter, X } from "lucide-react"
+import { MapPin, Square, Bed, Bath, Car, Wallet, Sparkles, Filter, X, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { PropertySkeleton } from "@/components/ui/skeleton"
+import ErrorBoundary, { PropertyErrorFallback } from "@/components/error-boundary"
+import ImageCarousel from "@/components/image-carousel"
+import { useProperties } from "@/hooks/use-properties"
+import { useFilters } from "@/hooks/use-filters"
+import { usePropertySearch } from "@/hooks/use-search"
+import { useAnalytics } from "@/hooks/use-analytics"
+import { useDebounce } from "use-debounce"
 
 interface Property {
   id: string
@@ -34,153 +41,106 @@ interface Property {
   garages?: number
 }
 
-interface Filters {
-  location: string
-  minPrice: number
-  maxPrice: number
-  rooms: string
-  minArea: number
-  maxArea: number
-  creditEligible: boolean | null
-  sortBy: string
-}
+function CompraPageContent() {
+  const { data: properties = [], isLoading, error } = useProperties()
+  const { filters, updateFilters, clearFilters, getActiveFiltersCount } = useFilters()
+  const { trackFilterUsage, trackSearchQuery, trackContactClick } = useAnalytics()
 
-export default function CompraPage() {
-  const [properties, setProperties] = useState<Property[]>([])
-  const [filteredProperties, setFilteredProperties] = useState<Property[]>([])
-  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300)
   const [showFilters, setShowFilters] = useState(false)
+  const [favorites, setFavorites] = useState<Set<string>>(new Set())
 
-  const [filters, setFilters] = useState<Filters>({
-    location: "",
-    minPrice: 0,
-    maxPrice: 500000,
-    rooms: "",
-    minArea: 0,
-    maxArea: 300,
-    creditEligible: null,
-    sortBy: "price-asc",
-  })
+  // Search functionality
+  const searchResults = usePropertySearch(properties, debouncedSearchTerm)
 
-  // Load properties on component mount
-  useEffect(() => {
-    const loadProperties = async () => {
-      try {
-        const data = await getProperties()
-        setProperties(data)
-        setFilteredProperties(data)
-      } catch (error) {
-        console.error("Error loading properties:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadProperties()
-  }, [])
-
-  // Apply filters whenever filters change
-  useEffect(() => {
-    let filtered = [...properties]
-
-    // Filter by location
-    if (filters.location) {
-      filtered = filtered.filter(
-        (property) =>
-          property.location.toLowerCase().includes(filters.location.toLowerCase()) ||
-          property.title.toLowerCase().includes(filters.location.toLowerCase()),
-      )
-    }
-
+  // Apply filters to search results
+  const filteredProperties = searchResults.filter((property) => {
     // Filter by price range
-    filtered = filtered.filter((property) => {
-      const price = Number.parseInt(property.priceUSD.replace(/[.,]/g, ""))
-      return price >= filters.minPrice && price <= filters.maxPrice
-    })
+    const price = Number.parseInt(property.priceUSD.replace(/[.,]/g, ""))
+    if (price < filters.minPrice || price > filters.maxPrice) return false
 
     // Filter by rooms
     if (filters.rooms && filters.rooms !== "any") {
       if (filters.rooms === "4+") {
-        filtered = filtered.filter((property) => (property.rooms || 0) >= 4)
+        if ((property.rooms || 0) < 4) return false
       } else {
-        filtered = filtered.filter((property) => property.rooms === Number.parseInt(filters.rooms))
+        if (property.rooms !== Number.parseInt(filters.rooms)) return false
       }
     }
 
     // Filter by area
-    filtered = filtered.filter((property) => {
-      const area = property.coveredArea || 0
-      return area >= filters.minArea && area <= filters.maxArea
-    })
+    const area = property.coveredArea || 0
+    if (area < filters.minArea || area > filters.maxArea) return false
 
     // Filter by credit eligibility
     if (filters.creditEligible !== null) {
-      filtered = filtered.filter((property) => property.creditEligible === filters.creditEligible)
+      if (property.creditEligible !== filters.creditEligible) return false
     }
 
-    // Sort properties
-    filtered.sort((a, b) => {
-      const priceA = Number.parseInt(a.priceUSD.replace(/[.,]/g, ""))
-      const priceB = Number.parseInt(b.priceUSD.replace(/[.,]/g, ""))
-      const areaA = a.coveredArea || 0
-      const areaB = b.coveredArea || 0
+    return true
+  })
 
-      switch (filters.sortBy) {
-        case "price-asc":
-          return priceA - priceB
-        case "price-desc":
-          return priceB - priceA
-        case "area-desc":
-          return areaB - areaA
-        case "area-asc":
-          return areaA - areaB
-        case "rooms-desc":
-          return (b.rooms || 0) - (a.rooms || 0)
-        default:
-          return 0
-      }
-    })
+  // Sort properties
+  const sortedProperties = [...filteredProperties].sort((a, b) => {
+    const priceA = Number.parseInt(a.priceUSD.replace(/[.,]/g, ""))
+    const priceB = Number.parseInt(b.priceUSD.replace(/[.,]/g, ""))
+    const areaA = a.coveredArea || 0
+    const areaB = b.coveredArea || 0
 
-    setFilteredProperties(filtered)
-  }, [properties, filters])
+    switch (filters.sortBy) {
+      case "price-asc":
+        return priceA - priceB
+      case "price-desc":
+        return priceB - priceA
+      case "area-desc":
+        return areaB - areaA
+      case "area-asc":
+        return areaA - areaB
+      case "rooms-desc":
+        return (b.rooms || 0) - (a.rooms || 0)
+      default:
+        return 0
+    }
+  })
 
-  const updateFilter = (key: keyof Filters, value: any) => {
-    setFilters((prev) => ({ ...prev, [key]: value }))
+  // Track search queries
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      trackSearchQuery(debouncedSearchTerm, searchResults.length)
+    }
+  }, [debouncedSearchTerm, searchResults.length, trackSearchQuery])
+
+  // Load favorites from localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem("techito-favorites")
+    if (savedFavorites) {
+      setFavorites(new Set(JSON.parse(savedFavorites)))
+    }
+  }, [])
+
+  const toggleFavorite = (propertyId: string) => {
+    const newFavorites = new Set(favorites)
+    if (newFavorites.has(propertyId)) {
+      newFavorites.delete(propertyId)
+    } else {
+      newFavorites.add(propertyId)
+    }
+    setFavorites(newFavorites)
+    localStorage.setItem("techito-favorites", JSON.stringify(Array.from(newFavorites)))
   }
 
-  const clearFilters = () => {
-    setFilters({
-      location: "",
-      minPrice: 0,
-      maxPrice: 500000,
-      rooms: "",
-      minArea: 0,
-      maxArea: 300,
-      creditEligible: null,
-      sortBy: "price-asc",
-    })
+  const handleContactClick = (propertyId: string) => {
+    trackContactClick(propertyId, "contact_button")
+    // Here you would implement the actual contact functionality
   }
 
-  const getActiveFiltersCount = () => {
-    let count = 0
-    if (filters.location) count++
-    if (filters.minPrice > 0 || filters.maxPrice < 500000) count++
-    if (filters.rooms) count++
-    if (filters.minArea > 0 || filters.maxArea < 300) count++
-    if (filters.creditEligible !== null) count++
-    return count
-  }
-
-  const locations = [...new Set(properties.map((p) => p.location.split(", ")[0]))]
-
-  if (loading) {
+  if (error) {
     return (
       <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
         <Header />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-techitoPurple mx-auto mb-4"></div>
-            <p className="text-lg text-gray-600">Cargando propiedades...</p>
-          </div>
+          <PropertyErrorFallback />
         </main>
       </div>
     )
@@ -190,7 +150,7 @@ export default function CompraPage() {
     <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
       <Header />
 
-      <main className="flex-1 p-6 md:p-10">
+      <main className="flex-1 p-6 md:p-10 pb-20 md:pb-10">
         {/* Hero Section */}
         <section className="max-w-6xl mx-auto text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -206,15 +166,21 @@ export default function CompraPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div className="relative">
                 <Input
-                  placeholder="Buscar por ubicación..."
-                  value={filters.location}
-                  onChange={(e) => updateFilter("location", e.target.value)}
+                  placeholder="Buscar por ubicación o título..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
                 <MapPin className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               </div>
 
-              <Select value={filters.rooms} onValueChange={(value) => updateFilter("rooms", value)}>
+              <Select
+                value={filters.rooms}
+                onValueChange={(value) => {
+                  updateFilters({ rooms: value })
+                  trackFilterUsage("rooms", value)
+                }}
+              >
                 <SelectTrigger>
                   <Bed className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Ambientes" />
@@ -229,7 +195,7 @@ export default function CompraPage() {
                 </SelectContent>
               </Select>
 
-              <Select value={filters.sortBy} onValueChange={(value) => updateFilter("sortBy", value)}>
+              <Select value={filters.sortBy} onValueChange={(value) => updateFilters({ sortBy: value })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
@@ -278,8 +244,8 @@ export default function CompraPage() {
                     <Slider
                       value={[filters.minPrice, filters.maxPrice]}
                       onValueChange={([min, max]) => {
-                        updateFilter("minPrice", min)
-                        updateFilter("maxPrice", max)
+                        updateFilters({ minPrice: min, maxPrice: max })
+                        trackFilterUsage("price_range", `${min}-${max}`)
                       }}
                       max={500000}
                       min={0}
@@ -300,8 +266,8 @@ export default function CompraPage() {
                     <Slider
                       value={[filters.minArea, filters.maxArea]}
                       onValueChange={([min, max]) => {
-                        updateFilter("minArea", min)
-                        updateFilter("maxArea", max)
+                        updateFilters({ minArea: min, maxArea: max })
+                        trackFilterUsage("area_range", `${min}-${max}`)
                       }}
                       max={300}
                       min={0}
@@ -320,7 +286,11 @@ export default function CompraPage() {
                   <label className="text-sm font-medium">Elegibilidad crediticia</label>
                   <Select
                     value={filters.creditEligible === null ? "any" : filters.creditEligible.toString()}
-                    onValueChange={(value) => updateFilter("creditEligible", value === "any" ? null : value === "true")}
+                    onValueChange={(value) => {
+                      const creditValue = value === "any" ? null : value === "true"
+                      updateFilters({ creditEligible: creditValue })
+                      trackFilterUsage("credit_eligible", value)
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Cualquiera" />
@@ -344,25 +314,25 @@ export default function CompraPage() {
               <Sparkles className="h-6 w-6 text-techitoPurple" />
               <h2 className="text-2xl font-bold">Propiedades disponibles</h2>
               <span className="bg-techitoPurple/10 text-techitoPurple px-3 py-1 rounded-full text-sm font-medium">
-                {filteredProperties.length} {filteredProperties.length === 1 ? "propiedad" : "propiedades"}
+                {sortedProperties.length} {sortedProperties.length === 1 ? "propiedad" : "propiedades"}
               </span>
             </div>
           </div>
 
           {/* Active Filters Display */}
-          {getActiveFiltersCount() > 0 && (
+          {(getActiveFiltersCount() > 0 || searchTerm) && (
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="text-sm text-gray-600">Filtros activos:</span>
-              {filters.location && (
+              {searchTerm && (
                 <Badge variant="secondary" className="bg-techitoPurple/10 text-techitoPurple">
-                  Ubicación: {filters.location}
-                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilter("location", "")} />
+                  Búsqueda: {searchTerm}
+                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setSearchTerm("")} />
                 </Badge>
               )}
               {filters.rooms && (
                 <Badge variant="secondary" className="bg-techitoPurple/10 text-techitoPurple">
                   {filters.rooms === "4+" ? "4+ ambientes" : `${filters.rooms} ambientes`}
-                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilter("rooms", "")} />
+                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilters({ rooms: "" })} />
                 </Badge>
               )}
               {(filters.minPrice > 0 || filters.maxPrice < 500000) && (
@@ -370,24 +340,27 @@ export default function CompraPage() {
                   USD {filters.minPrice.toLocaleString()} - {filters.maxPrice.toLocaleString()}
                   <X
                     className="h-3 w-3 ml-1 cursor-pointer"
-                    onClick={() => {
-                      updateFilter("minPrice", 0)
-                      updateFilter("maxPrice", 500000)
-                    }}
+                    onClick={() => updateFilters({ minPrice: 0, maxPrice: 500000 })}
                   />
                 </Badge>
               )}
               {filters.creditEligible !== null && (
                 <Badge variant="secondary" className="bg-techitoPurple/10 text-techitoPurple">
                   {filters.creditEligible ? "Apto crédito" : "Solo contado"}
-                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilter("creditEligible", null)} />
+                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilters({ creditEligible: null })} />
                 </Badge>
               )}
             </div>
           )}
 
           {/* Properties Grid */}
-          {filteredProperties.length === 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <PropertySkeleton key={index} />
+              ))}
+            </div>
+          ) : sortedProperties.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🏠</div>
               <h3 className="text-xl font-semibold mb-2">No se encontraron propiedades</h3>
@@ -398,78 +371,90 @@ export default function CompraPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((property) => (
-                <Link href={`/properties/${property.id}`} key={property.id}>
+              {sortedProperties.map((property, index) => (
+                <ErrorBoundary key={property.id} fallback={<PropertyErrorFallback />}>
                   <Card className="bg-white border border-techitoLightGray shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden group">
-                    <div className="relative w-full h-48 overflow-hidden">
-                      <Image
-                        src={property.image || "/placeholder.svg?height=192&width=384&text=🏠&bg=f3f4f6&color=6b7280"}
-                        alt={property.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="group-hover:scale-105 transition-transform duration-300"
-                        priority={false}
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span className="bg-techitoPurple text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-                          35% bajo promedio
-                        </span>
-                      </div>
-                      {property.creditEligible && (
-                        <div className="absolute top-3 right-3">
-                          <span className="bg-techitoGreen text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-                            Apto crédito
+                    <Link href={`/properties/${property.id}`}>
+                      <div className="relative w-full h-48 overflow-hidden">
+                        {property.images && property.images.length > 1 ? (
+                          <ImageCarousel images={property.images} alt={property.title} className="h-full" />
+                        ) : (
+                          <Image
+                            src={
+                              property.image || "/placeholder.svg?height=192&width=384&text=🏠&bg=f3f4f6&color=6b7280"
+                            }
+                            alt={property.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            priority={index < 6}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        )}
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-techitoPurple text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                            35% bajo promedio
                           </span>
                         </div>
-                      )}
-                    </div>
+                        {property.creditEligible && (
+                          <div className="absolute top-3 right-3">
+                            <span className="bg-techitoGreen text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                              Apto crédito
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
 
                     <CardContent className="p-4">
-                      <h3 className="font-semibold text-lg mb-2 line-clamp-1">{property.title}</h3>
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mb-3">
-                        <MapPin className="h-4 w-4 text-gray-400" />
-                        {property.location}
-                      </p>
+                      <Link href={`/properties/${property.id}`}>
+                        <h3 className="font-semibold text-lg mb-2 line-clamp-1 hover:text-techitoPurple transition-colors">
+                          {property.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 flex items-center gap-1 mb-3">
+                          <MapPin className="h-4 w-4 text-gray-400" />
+                          {property.location}
+                        </p>
 
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex flex-col">
-                          <p className="font-bold text-xl text-techitoPurple">USD {property.priceUSD}</p>
-                          {property.priceUVA && <p className="text-sm text-gray-600">UVA {property.priceUVA}</p>}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex flex-col">
+                            <p className="font-bold text-xl text-techitoPurple">USD {property.priceUSD}</p>
+                            {property.priceUVA && <p className="text-sm text-gray-600">UVA {property.priceUVA}</p>}
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
-                        {property.coveredArea && (
-                          <p className="flex items-center gap-1">
-                            <Square className="h-4 w-4 text-gray-400" />
-                            {property.coveredArea} m²
-                          </p>
-                        )}
-                        {property.rooms !== undefined && (
-                          <p className="flex items-center gap-1">
-                            <Bed className="h-4 w-4 text-gray-400" />
-                            {property.rooms} amb.
-                          </p>
-                        )}
-                        {property.bathrooms !== undefined && (
-                          <p className="flex items-center gap-1">
-                            <Bath className="h-4 w-4 text-gray-400" />
-                            {property.bathrooms} baños
-                          </p>
-                        )}
-                        {property.garages !== undefined && property.garages > 0 && (
-                          <p className="flex items-center gap-1">
-                            <Car className="h-4 w-4 text-gray-400" />
-                            {property.garages} coch.
-                          </p>
-                        )}
-                        {property.expenses && (
-                          <p className="flex items-center gap-1 col-span-2">
-                            <Wallet className="h-4 w-4 text-gray-400" />
-                            Expensas: {property.expenses}
-                          </p>
-                        )}
-                      </div>
+                        <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                          {property.coveredArea && (
+                            <p className="flex items-center gap-1">
+                              <Square className="h-4 w-4 text-gray-400" />
+                              {property.coveredArea} m²
+                            </p>
+                          )}
+                          {property.rooms !== undefined && (
+                            <p className="flex items-center gap-1">
+                              <Bed className="h-4 w-4 text-gray-400" />
+                              {property.rooms} amb.
+                            </p>
+                          )}
+                          {property.bathrooms !== undefined && (
+                            <p className="flex items-center gap-1">
+                              <Bath className="h-4 w-4 text-gray-400" />
+                              {property.bathrooms} baños
+                            </p>
+                          )}
+                          {property.garages !== undefined && property.garages > 0 && (
+                            <p className="flex items-center gap-1">
+                              <Car className="h-4 w-4 text-gray-400" />
+                              {property.garages} coch.
+                            </p>
+                          )}
+                          {property.expenses && (
+                            <p className="flex items-center gap-1 col-span-2">
+                              <Wallet className="h-4 w-4 text-gray-400" />
+                              Expensas: {property.expenses}
+                            </p>
+                          )}
+                        </div>
+                      </Link>
 
                       <div className="flex gap-2">
                         <Button
@@ -477,7 +462,7 @@ export default function CompraPage() {
                           className="flex-1 bg-techitoPurple hover:bg-techitoPurple/90 text-white"
                           onClick={(e) => {
                             e.preventDefault()
-                            // Handle contact action
+                            handleContactClick(property.id)
                           }}
                         >
                           Contactar
@@ -485,24 +470,26 @@ export default function CompraPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="flex-1 border-techitoPurple text-techitoPurple hover:bg-techitoPurple/10 bg-transparent"
+                          className={`border-techitoPurple hover:bg-techitoPurple/10 bg-transparent ${
+                            favorites.has(property.id) ? "text-red-500 border-red-500" : "text-techitoPurple"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault()
-                            // Handle favorite action
+                            toggleFavorite(property.id)
                           }}
                         >
-                          Favorito
+                          <Heart className={`h-4 w-4 ${favorites.has(property.id) ? "fill-current" : ""}`} />
                         </Button>
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
+                </ErrorBoundary>
               ))}
             </div>
           )}
 
           {/* CTA Section */}
-          {filteredProperties.length > 0 && (
+          {sortedProperties.length > 0 && (
             <section className="text-center mt-16 bg-white rounded-lg shadow-md p-8 border border-techitoLightGray">
               <h2 className="text-3xl font-bold mb-4">¿No encontraste lo que buscabas?</h2>
               <p className="text-lg text-gray-600 mb-6">
@@ -527,5 +514,25 @@ export default function CompraPage() {
 
       <Footer />
     </div>
+  )
+}
+
+export default function CompraPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-techitoBackground text-techitoText flex flex-col">
+          <Header />
+          <main className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-techitoPurple mx-auto mb-4"></div>
+              <p className="text-lg text-gray-600">Cargando propiedades...</p>
+            </div>
+          </main>
+        </div>
+      }
+    >
+      <CompraPageContent />
+    </Suspense>
   )
 }
