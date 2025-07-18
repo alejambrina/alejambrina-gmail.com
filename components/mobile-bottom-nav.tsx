@@ -1,8 +1,8 @@
 "use client"
 
+import { Home, Search, Heart, User } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Search, Heart, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -16,25 +16,27 @@ export default function MobileBottomNav() {
   const pathname = usePathname()
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-techitoLightGray md:hidden z-50">
-      <div className="flex justify-around py-2">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:hidden z-50">
+      <div className="flex items-center justify-around py-2">
         {navItems.map((item) => {
+          const Icon = item.icon
           const isActive = pathname === item.href
+
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center py-2 px-3 rounded-lg transition-colors",
-                isActive ? "text-techitoPurple bg-techitoPurple/10" : "text-gray-600 hover:text-techitoPurple",
+                "flex flex-col items-center py-2 px-3 text-xs transition-colors",
+                isActive ? "text-techitoPurple" : "text-gray-500 hover:text-techitoPurple",
               )}
             >
-              <item.icon className="h-5 w-5 mb-1" />
-              <span className="text-xs font-medium">{item.label}</span>
+              <Icon className="h-5 w-5 mb-1" />
+              <span>{item.label}</span>
             </Link>
           )
         })}
       </div>
-    </div>
+    </nav>
   )
 }

@@ -1,26 +1,18 @@
 "use client"
 
 import { useEffect } from "react"
-import { onCLS, onFID, onFCP, onLCP, onTTFB, type Metric } from "web-vitals"
 
-export default function WebVitals() {
+export function WebVitals() {
   useEffect(() => {
-    const sendToAnalytics = (metric: Metric) => {
-      // Google Analytics 4 example – adjust to your analytics provider
-      if (typeof window !== "undefined" && (window as any).gtag) {
-        ;(window as any).gtag("event", metric.name, {
-          value: Math.round(metric.value),
-          event_category: "Web Vitals",
-          non_interaction: true,
-        })
-      }
+    if (typeof window !== "undefined") {
+      import("web-vitals").then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
+        onCLS(console.log)
+        onFID(console.log)
+        onFCP(console.log)
+        onLCP(console.log)
+        onTTFB(console.log)
+      })
     }
-
-    onCLS(sendToAnalytics)
-    onFID(sendToAnalytics)
-    onFCP(sendToAnalytics)
-    onLCP(sendToAnalytics)
-    onTTFB(sendToAnalytics)
   }, [])
 
   return null

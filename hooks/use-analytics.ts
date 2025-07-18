@@ -2,68 +2,39 @@
 
 import { useCallback } from "react"
 
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void
-  }
-}
-
-export const useAnalytics = () => {
-  const trackEvent = useCallback((eventName: string, parameters?: Record<string, any>) => {
+export function useAnalytics() {
+  const trackFilterUsage = useCallback((filterType: string, value: string) => {
+    // Analytics tracking implementation
     if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", eventName, parameters)
+      window.gtag("event", "filter_used", {
+        event_category: "property_search",
+        event_label: filterType,
+        value: value,
+      })
     }
   }, [])
 
-  const trackPropertyView = useCallback(
-    (propertyId: string, propertyTitle: string) => {
-      trackEvent("property_view", {
-        property_id: propertyId,
-        property_title: propertyTitle,
-        event_category: "engagement",
-      })
-    },
-    [trackEvent],
-  )
-
-  const trackFilterUsage = useCallback(
-    (filterType: string, filterValue: string) => {
-      trackEvent("filter_used", {
-        filter_type: filterType,
-        filter_value: filterValue,
-        event_category: "search",
-      })
-    },
-    [trackEvent],
-  )
-
-  const trackContactClick = useCallback(
-    (propertyId: string, contactMethod: string) => {
-      trackEvent("contact_property", {
-        property_id: propertyId,
-        contact_method: contactMethod,
-        event_category: "conversion",
-      })
-    },
-    [trackEvent],
-  )
-
-  const trackSearchQuery = useCallback(
-    (query: string, resultsCount: number) => {
-      trackEvent("search", {
+  const trackSearchQuery = useCallback((query: string, resultCount: number) => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "search", {
         search_term: query,
-        results_count: resultsCount,
-        event_category: "search",
+        event_category: "property_search",
+        custom_parameters: {
+          result_count: resultCount,
+        },
       })
-    },
-    [trackEvent],
-  )
+    }
+  }, [])
 
-  return {
-    trackEvent,
-    trackPropertyView,
-    trackFilterUsage,
-    trackContactClick,
-    trackSearchQuery,
-  }
+  const trackContactClick = useCallback((propertyId: string, source: string) => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "contact_property", {
+        event_category: "property_interaction",
+        event_label: source,
+        value: propertyId,
+      })
+    }
+  }, [])
+
+  return { trackFilterUsage, trackSearchQuery, trackContactClick }
 }

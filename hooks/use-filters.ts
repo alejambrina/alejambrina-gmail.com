@@ -1,128 +1,95 @@
 "use client"
 
-/**
- * Centralised filter state for Techito.
- * – Keeps helpers stable to avoid render loops
- * – Persists to localStorage and the URL so filters survive refresh / share
- */
-
-import { useCallback, useEffect, useReducer } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-/* ────────────────────────────────────────────────────────────────── */
-/* Types & defaults                                                  */
-/* ────────────────────────────────────────────────────────────────── */
 export interface Filters {
   location: string
   minPrice: number
   maxPrice: number
-  rooms: "any" | "1" | "2" | "3" | "3+"
+  rooms: string
   minArea: number
   maxArea: number
-  creditEligible: "any" | "true" | "false"
-  sortBy: "price-asc" | "price-desc" | "area-asc" | "area-desc"
+  creditEligible: boolean | null
+  sortBy: string
 }
 
-const DEFAULT_FILTERS: Filters = {
+export const DEFAULT_FILTERS: Filters = {
   location: "",
   minPrice: 0,
   maxPrice: 500_000,
-  rooms: "any",
+  rooms: "",
   minArea: 0,
   maxArea: 300,
-  creditEligible: "any",
+  creditEligible: null,
   sortBy: "price-asc",
 }
 
-/* ────────────────────────────────────────────────────────────────── */
-/* Reducer                                                            */
-/* ────────────────────────────────────────────────────────────────── */
-type Action = { type: "update"; payload: Partial<Filters> } | { type: "replace"; payload: Filters } | { type: "clear" }
-
-function reducer(state: Filters, action: Action): Filters {
-  switch (action.type) {
-    case "update":
-      return { ...state, ...action.payload }
-    case "replace":
-      return action.payload
-    case "clear":
-      return DEFAULT_FILTERS
-    default:
-      return state
-  }
-}
-
-/* ────────────────────────────────────────────────────────────────── */
-/* Hook                                                               */
-/* ────────────────────────────────────────────────────────────────── */
 export function useFilters() {
   const router = useRouter()
   const search = useSearchParams()
-  const [filters, dispatch] = useReducer(reducer, DEFAULT_FILTERS)
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
-  /* ------------ Initialise once from URL or localStorage ---------- */
+  // Initialize from URL params or localStorage
   useEffect(() => {
-    let initial: Partial<Filters> = {}
-
-    // 1. URL
-    if (search.size) {
-      initial = {
-        location: search.get("location") ?? "",
-        minPrice: Number(search.get("minPrice") ?? 0),
-        maxPrice: Number(search.get("maxPrice") ?? 500_000),
-        rooms: (search.get("rooms") as Filters["rooms"]) ?? "any",
-        minArea: Number(search.get("minArea") ?? 0),
-        maxArea: Number(search.get("maxArea") ?? 300),
-        creditEligible: (search.get("creditEligible") as Filters["creditEligible"]) ?? "any",
-        sortBy: (search.get("sortBy") as Filters["sortBy"]) ?? "price-asc",
-      }
-    } else {
-      // 2. localStorage fallback
-      try {
-        const saved = localStorage.getItem("techito:filters")
-        if (saved) initial = JSON.parse(saved)
-      } catch {
-        /* ignore */
-      }
+    const urlFilters: Partial<Filters> = {
+      location: search.get("location") ?? "",
+      minPrice: Number(search.get("minPrice") ?? 0),
+      maxPrice: Number(search.get("maxPrice") ?? 500_000),
+      rooms: search.get("rooms") ?? "",
+      minArea: Number(search.get("minArea") ?? 0),
+      maxArea: Number(search.get("maxArea") ?? 300),
+      creditEligible:
+        search.get("creditEligible") === "true" ? true : search.get("creditEligible") === "false" ? false : null,
+      sortBy: search.get("sortBy") ?? "price-asc",
     }
 
-    dispatch({ type: "replace", payload: { ...DEFAULT_FILTERS, ...initial } })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const saved = localStorage.getItem("techito-filters")
+    const initial = saved && !search.toString() ? JSON.parse(saved) : {}
 
-  /* ---------------- Helper callbacks (stable) --------------------- */
-  const updateFilters = useCallback((payload: Partial<Filters>) => {
-    dispatch({ type: "update", payload })
-  }, [])
+    setFilters({ ...DEFAULT_FILTERS, ...urlFilters, ...initial })
+  }, [search])
 
-  const clearFilters = useCallback(() => dispatch({ type: "clear" }), [])
+  const updateFilters = useCallback(
+    (patch: Partial<Filters>) => {
+      setFilters((prev) => {
+        const next = { ...prev, ...patch }
+
+        // Sync URL (only changed values)
+        const params = new URLSearchParams()
+        Object.entries(next).forEach(([k, v]) => {
+          const def = DEFAULT_FILTERS[k as keyof Filters]
+          if (v !== def && v !== "" && v !== null) params.set(k, String(v))
+        })
+
+        router.push(params.toString() ? `?${params}` : window.location.pathname, {
+          scroll: false,
+        })
+
+        // Persist in localStorage
+        localStorage.setItem("techito-filters", JSON.stringify(next))
+
+        return next
+      })
+    },
+    [router],
+  )
+
+  const clearFilters = useCallback(() => {
+    setFilters(DEFAULT_FILTERS)
+    router.push(window.location.pathname, { scroll: false })
+    localStorage.removeItem("techito-filters")
+  }, [router])
 
   const getActiveFiltersCount = useCallback(() => {
-    let c = 0
-    if (filters.location) c++
-    if (filters.minPrice > 0 || filters.maxPrice < 500_000) c++
-    if (filters.rooms !== "any") c++
-    if (filters.minArea > 0 || filters.maxArea < 300) c++
-    if (filters.creditEligible !== "any") c++
-    return c
+    let n = 0
+    if (filters.location) n++
+    if (filters.minPrice > 0 || filters.maxPrice < 500_000) n++
+    if (filters.rooms) n++
+    if (filters.minArea > 0 || filters.maxArea < 300) n++
+    if (filters.creditEligible !== null) n++
+    return n
   }, [filters])
-
-  /* -------------- Persist to URL + localStorage on change --------- */
-  useEffect(() => {
-    // localStorage
-    try {
-      localStorage.setItem("techito:filters", JSON.stringify(filters))
-    } catch {
-      /* ignore quota errors */
-    }
-
-    // URL (only non-default values)
-    const params = new URLSearchParams()
-    Object.entries(filters).forEach(([k, v]) => {
-      if (v !== DEFAULT_FILTERS[k as keyof Filters]) params.set(k, String(v))
-    })
-    router.replace(params.size ? `?${params}` : window.location.pathname, { scroll: false })
-  }, [filters, router])
 
   return { filters, updateFilters, clearFilters, getActiveFiltersCount }
 }

@@ -1,70 +1,61 @@
 "use client"
 
-import type React from "react"
-import { Component, type ReactNode } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import React from "react"
 import { AlertTriangle, RefreshCw } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-interface Props {
-  children: ReactNode
-  fallback?: ReactNode
-}
-
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean
   error?: Error
 }
 
-class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+interface ErrorBoundaryProps {
+  children: React.ReactNode
+  fallback?: React.ComponentType<{ error?: Error; resetError: () => void }>
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("Error caught by boundary:", error, errorInfo)
+  }
 
-    // Track error in analytics
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "exception", {
-        description: error.message,
-        fatal: false,
-      })
-    }
+  resetError = () => {
+    this.setState({ hasError: false, error: undefined })
   }
 
   render() {
     if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback
+      const FallbackComponent = this.props.fallback
+      if (FallbackComponent) {
+        return <FallbackComponent error={this.state.error} resetError={this.resetError} />
       }
 
       return (
-        <div className="min-h-[400px] flex items-center justify-center p-6">
-          <Card className="max-w-md w-full">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-3 rounded-full bg-red-100">
-                <AlertTriangle className="h-8 w-8 text-red-600" />
-              </div>
-              <CardTitle className="text-xl">Algo salió mal</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-gray-600">Ocurrió un error inesperado. Por favor, intenta recargar la página.</p>
-              <Button
-                onClick={() => window.location.reload()}
-                className="bg-techitoPurple hover:bg-techitoPurple/90 text-white"
-              >
-                <RefreshCw className="h-4 w-4 mr-2" />
-                Recargar página
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="w-full max-w-md mx-auto mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-red-600">
+              <AlertTriangle className="h-5 w-5" />
+              Algo salió mal
+            </CardTitle>
+            <CardDescription>Ha ocurrido un error inesperado. Por favor, intenta recargar la página.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button onClick={this.resetError} className="w-full bg-transparent" variant="outline">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Intentar de nuevo
+            </Button>
+          </CardContent>
+        </Card>
       )
     }
 
@@ -72,18 +63,22 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-// Property-specific error fallback
-export const PropertyErrorFallback = () => (
-  <Card className="bg-white border border-red-200 shadow-sm">
-    <CardContent className="p-6 text-center">
-      <AlertTriangle className="h-8 w-8 text-red-500 mx-auto mb-3" />
-      <h3 className="font-semibold text-gray-900 mb-2">Error al cargar propiedad</h3>
-      <p className="text-sm text-gray-600 mb-4">No pudimos cargar esta propiedad. Intenta nuevamente más tarde.</p>
-      <Button size="sm" variant="outline" onClick={() => window.location.reload()}>
-        Reintentar
-      </Button>
-    </CardContent>
-  </Card>
-)
+export function PropertyErrorFallback({ error, resetError }: { error?: Error; resetError?: () => void }) {
+  return (
+    <Card className="w-full">
+      <CardContent className="p-6 text-center">
+        <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold mb-2">Error al cargar la propiedad</h3>
+        <p className="text-gray-600 mb-4">No pudimos cargar esta propiedad. Por favor, intenta de nuevo.</p>
+        {resetError && (
+          <Button onClick={resetError} variant="outline">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Reintentar
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
 
 export default ErrorBoundary

@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo } from "react"
-import { useDeferredValue } from "react"
 import Fuse from "fuse.js"
 
 interface Property {
@@ -9,30 +8,21 @@ interface Property {
   title: string
   location: string
   description?: string
-  [key: string]: any
 }
 
-export const usePropertySearch = (properties: Property[], searchTerm: string) => {
-  const deferredSearchTerm = useDeferredValue(searchTerm)
-
-  const fuse = useMemo(
-    () =>
-      new Fuse(properties, {
-        keys: [
-          { name: "title", weight: 0.4 },
-          { name: "location", weight: 0.3 },
-          { name: "description", weight: 0.3 },
-        ],
-        threshold: 0.3,
-        includeScore: true,
-      }),
-    [properties],
-  )
+export function usePropertySearch(properties: Property[], searchTerm: string) {
+  const fuse = useMemo(() => {
+    return new Fuse(properties, {
+      keys: ["title", "location", "description"],
+      threshold: 0.3,
+      includeScore: true,
+    })
+  }, [properties])
 
   return useMemo(() => {
-    if (!deferredSearchTerm.trim()) return properties
+    if (!searchTerm.trim()) return properties
 
-    const results = fuse.search(deferredSearchTerm)
+    const results = fuse.search(searchTerm)
     return results.map((result) => result.item)
-  }, [fuse, deferredSearchTerm, properties])
+  }, [fuse, searchTerm, properties])
 }

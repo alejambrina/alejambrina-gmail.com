@@ -159,7 +159,7 @@ importers:
         specifier: latest
         version: 3.0.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-swipeable:
-        specifier: latest
+        specifier: ^7.0.0
         version: 7.0.2(react@19.0.0)
       recharts:
         specifier: latest
