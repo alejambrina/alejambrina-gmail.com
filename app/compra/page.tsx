@@ -74,8 +74,9 @@ function CompraPageContent() {
     if (area < filters.minArea || area > filters.maxArea) return false
 
     // Filter by credit eligibility
-    if (filters.creditEligible !== null) {
-      if (property.creditEligible !== filters.creditEligible) return false
+    if (filters.creditEligible !== "any") {
+      const expected = filters.creditEligible === "true"
+      if (property.creditEligible !== expected) return false
     }
 
     return true
@@ -285,10 +286,9 @@ function CompraPageContent() {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Elegibilidad crediticia</label>
                   <Select
-                    value={filters.creditEligible === null ? "any" : filters.creditEligible.toString()}
+                    value={filters.creditEligible}
                     onValueChange={(value) => {
-                      const creditValue = value === "any" ? null : value === "true"
-                      updateFilters({ creditEligible: creditValue })
+                      updateFilters({ creditEligible: value })
                       trackFilterUsage("credit_eligible", value)
                     }}
                   >
@@ -344,10 +344,10 @@ function CompraPageContent() {
                   />
                 </Badge>
               )}
-              {filters.creditEligible !== null && (
+              {filters.creditEligible !== "any" && (
                 <Badge variant="secondary" className="bg-techitoPurple/10 text-techitoPurple">
                   {filters.creditEligible ? "Apto crédito" : "Solo contado"}
-                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilters({ creditEligible: null })} />
+                  <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => updateFilters({ creditEligible: "any" })} />
                 </Badge>
               )}
             </div>
