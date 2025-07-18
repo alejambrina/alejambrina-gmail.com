@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { CheckCircle, X } from "lucide-react"
+import { CheckCircle, X, MapPin } from "lucide-react"
 import Header from "@/components/header"
 
 export default function PreciosPage() {
   const pricingPlans = [
     {
       name: "Análisis Exprés",
-      priceUSD: "USD 15",
-      priceARS: "$15.000",
+      price: "$15.000",
       description: "Análisis básico para una primera evaluación de la propiedad.",
       features: [
         "Valor estimado y valor/m²",
@@ -33,8 +32,7 @@ export default function PreciosPage() {
     },
     {
       name: "Análisis Premium",
-      priceUSD: "USD 40",
-      priceARS: "$40.000",
+      price: "$40.000",
       description: "Análisis completo con herramientas avanzadas de evaluación.",
       features: [
         "Todo lo del Análisis Exprés",
@@ -55,8 +53,7 @@ export default function PreciosPage() {
     },
     {
       name: "Análisis Pro",
-      priceUSD: "USD 90",
-      priceARS: "$90.000",
+      price: "$90.000",
       description: "Análisis profesional integral para inversores y compradores exigentes.",
       features: [
         "Todo lo del Análisis Premium",
@@ -80,10 +77,21 @@ export default function PreciosPage() {
       <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full">
         <section className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Análisis de Propiedades</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
             Obtén un análisis profesional y detallado de cualquier propiedad antes de tomar tu decisión de compra.
             Nuestros expertos te brindan toda la información que necesitas para invertir con confianza.
           </p>
+
+          {/* Coverage Area Notice */}
+          <div className="bg-techitoPurple/10 border border-techitoPurple/20 rounded-lg p-4 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 text-techitoPurple">
+              <MapPin className="h-5 w-5" />
+              <span className="font-semibold">Cobertura: Capital Federal únicamente</span>
+            </div>
+            <p className="text-sm text-gray-600 mt-2">
+              Actualmente analizamos propiedades ubicadas en Ciudad Autónoma de Buenos Aires (CABA)
+            </p>
+          </div>
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
@@ -107,10 +115,7 @@ export default function PreciosPage() {
               <CardHeader className="text-center pb-4">
                 <CardTitle className="text-2xl font-bold text-techitoPurple">{plan.name}</CardTitle>
                 <CardDescription className="text-gray-600 mb-4">{plan.description}</CardDescription>
-                <div className="space-y-1">
-                  <div className="text-3xl font-extrabold text-techitoText">{plan.priceUSD}</div>
-                  <div className="text-lg font-semibold text-gray-600">{plan.priceARS}</div>
-                </div>
+                <div className="text-4xl font-extrabold text-techitoText">{plan.price}</div>
               </CardHeader>
 
               <CardContent className="flex-1 px-6 py-4">
@@ -160,7 +165,7 @@ export default function PreciosPage() {
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Envías la propiedad</h3>
                     <p className="text-gray-600">
-                      Nos compartes el link o los datos de la propiedad que te interesa analizar.
+                      Nos compartes el link o los datos de la propiedad de Capital Federal que te interesa analizar.
                     </p>
                   </div>
                 </div>
@@ -172,7 +177,7 @@ export default function PreciosPage() {
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Analizamos en profundidad</h3>
                     <p className="text-gray-600">
-                      Nuestros expertos realizan un análisis completo usando datos de mercado y herramientas
+                      Nuestros expertos realizan un análisis completo usando datos de mercado de CABA y herramientas
                       especializadas.
                     </p>
                   </div>
@@ -217,6 +222,24 @@ export default function PreciosPage() {
                 Consultar con un experto
               </Button>
             </div>
+          </div>
+        </section>
+
+        {/* Coverage Limitation Notice */}
+        <section className="bg-gray-50 rounded-lg p-6 border border-gray-200 mt-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h3 className="text-xl font-semibold mb-3 flex items-center justify-center gap-2">
+              <MapPin className="h-5 w-5 text-techitoPurple" />
+              Área de Cobertura
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Nuestros análisis están especializados en el mercado inmobiliario de{" "}
+              <strong>Capital Federal (CABA)</strong>. Contamos con datos precisos y actualizados de todos los barrios
+              porteños para brindarte el análisis más exacto posible.
+            </p>
+            <p className="text-sm text-gray-500">
+              ¿Tienes una propiedad fuera de CABA? Contáctanos para conocer nuestros planes de expansión.
+            </p>
           </div>
         </section>
       </main>
