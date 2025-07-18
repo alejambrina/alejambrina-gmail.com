@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { CheckCircle, X, MapPin, Search, DollarSign, Handshake, Key } from "lucide-react"
+import { CheckCircle, X, MapPin, Search, FileText, BarChart3, CheckSquare } from "lucide-react"
 import Header from "@/components/header"
 
 export default function PreciosPage() {
@@ -94,12 +94,12 @@ export default function PreciosPage() {
           </div>
         </section>
 
-        {/* How Techito Works section - moved from /como-funciona */}
+        {/* How Techito Works section - aligned with analysis types */}
         <section className="bg-white rounded-lg shadow-md p-8 border border-techitoLightGray mb-12">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-8">¿Cómo funciona Techito?</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">¿Cómo funciona nuestro servicio de análisis?</h2>
             <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Simplificamos el proceso de compra de propiedades para que encuentres tu hogar ideal al mejor precio.
+              Un proceso simple y profesional para obtener el análisis perfecto según tus necesidades.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -108,12 +108,13 @@ export default function PreciosPage() {
                   <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
                     <Search className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-xl font-semibold">1. Buscamos las mejores oportunidades</CardTitle>
+                  <CardTitle className="text-xl font-semibold">1. Selecciona tu tipo de análisis</CardTitle>
                 </CardHeader>
                 <CardContent className="px-6 py-4 text-gray-700">
                   <p>
-                    Nuestros algoritmos rastrean miles de propiedades en el mercado para identificar aquellas con el
-                    mayor potencial de ahorro. No te mostramos todo, solo lo que realmente vale la pena.
+                    Elige entre nuestros tres niveles de análisis: <strong>Exprés</strong> para una evaluación rápida,{" "}
+                    <strong>Premium</strong> para un análisis completo, o <strong>Pro</strong> para el máximo nivel de
+                    detalle profesional.
                   </p>
                 </CardContent>
               </Card>
@@ -121,14 +122,14 @@ export default function PreciosPage() {
               <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
-                    <DollarSign className="h-6 w-6" />
+                    <BarChart3 className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-xl font-semibold">2. Analizamos el valor real</CardTitle>
+                  <CardTitle className="text-xl font-semibold">2. Analizamos tu propiedad</CardTitle>
                 </CardHeader>
                 <CardContent className="px-6 py-4 text-gray-700">
                   <p>
-                    Comparamos cada propiedad con datos históricos y de mercado para determinar su valor justo. Así,
-                    podemos calcular el porcentaje de ahorro real que obtendrías.
+                    Nuestros expertos realizan un análisis exhaustivo utilizando datos de mercado, comparables, mapas de
+                    calor y todas las herramientas incluidas en tu plan seleccionado.
                   </p>
                 </CardContent>
               </Card>
@@ -136,14 +137,14 @@ export default function PreciosPage() {
               <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
-                    <Handshake className="h-6 w-6" />
+                    <FileText className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-xl font-semibold">3. Te conectamos con el vendedor</CardTitle>
+                  <CardTitle className="text-xl font-semibold">3. Recibes tu reporte completo</CardTitle>
                 </CardHeader>
                 <CardContent className="px-6 py-4 text-gray-700">
                   <p>
-                    Una vez que encuentres una propiedad que te interese, te facilitamos el contacto directo con el
-                    vendedor o su representante, sin intermediarios innecesarios.
+                    Te entregamos un reporte detallado con toda la información analizada: valuación, comparables, datos
+                    del barrio, simulaciones financieras y recomendaciones profesionales.
                   </p>
                 </CardContent>
               </Card>
@@ -151,14 +152,14 @@ export default function PreciosPage() {
               <Card className="bg-white border border-techitoLightGray shadow-md rounded-lg">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <div className="p-3 rounded-full bg-techitoPurple/10 text-techitoPurple">
-                    <Key className="h-6 w-6" />
+                    <CheckSquare className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-xl font-semibold">4. Acompañamiento hasta la compra</CardTitle>
+                  <CardTitle className="text-xl font-semibold">4. Tomas la mejor decisión</CardTitle>
                 </CardHeader>
                 <CardContent className="px-6 py-4 text-gray-700">
                   <p>
-                    Te brindamos herramientas y asesoramiento para que puedas negociar el mejor precio y te acompañamos
-                    en cada etapa del proceso, desde la visita hasta la firma.
+                    Con toda la información precisa y confiable en tus manos, puedes tomar una decisión de compra
+                    informada y negociar con confianza el mejor precio posible.
                   </p>
                 </CardContent>
               </Card>
