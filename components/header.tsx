@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Menu } from "lucide-react" // Removed other icon imports
+import { Menu } from 'lucide-react' // Removed other icon imports
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
@@ -12,10 +12,8 @@ export default function Header() {
   const pathname = usePathname()
 
   const navLinks = [
-    { href: "/como-funciona", label: "¿Cómo funciona?" },
     { href: "/compra", label: "Compra" },
     { href: "/precios", label: "Precios" },
-    { href: "/preguntas", label: "Preguntas" },
     { href: "/blog", label: "Blog" },
     { href: "/contacto", label: "Contacto" },
   ]

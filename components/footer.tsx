@@ -52,21 +52,8 @@ export default function Footer() {
           <h3 className="text-base font-normal text-gray-400 mb-4">Explora</h3>
           <ul className="space-y-2">
             <li>
-              <Link
-                href="/como-funciona"
-                className="text-gray-200 font-medium hover:text-techitoPurple transition-colors"
-              >
-                ¿Cómo funciona?
-              </Link>
-            </li>
-            <li>
               <Link href="/precios" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
                 Precios
-              </Link>
-            </li>
-            <li>
-              <Link href="/preguntas" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
-                Preguntas Frecuentes
               </Link>
             </li>
             <li>
