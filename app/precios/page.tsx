@@ -163,16 +163,6 @@ export default function PreciosPage() {
                 </CardContent>
               </Card>
             </div>
-
-            <div className="text-center mt-12">
-              <h3 className="text-2xl font-bold mb-4">¿Listo para encontrar tu techito ideal?</h3>
-              <p className="text-gray-600 mb-6">
-                Nuestros análisis te ayudan a tomar la mejor decisión de compra con información precisa y confiable.
-              </p>
-              <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 px-8 rounded-md shadow-md">
-                Explorar Oportunidades
-              </Button>
-            </div>
           </div>
         </section>
 
