@@ -13,6 +13,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/como-funciona", label: "¿Cómo funciona?" },
+    { href: "/compara", label: "Compara" },
     { href: "/precios", label: "Precios" },
     { href: "/preguntas", label: "Preguntas" },
     { href: "/blog", label: "Blog" },
