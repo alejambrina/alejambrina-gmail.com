@@ -53,7 +53,7 @@ export default function Footer() {
           <ul className="space-y-2">
             <li>
               <Link href="/precios" className="text-gray-200 font-medium hover:text-techitoPurple transition-colors">
-                Precios
+                Compra tu Techito
               </Link>
             </li>
             <li>
