@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Search } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
@@ -20,7 +20,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { useFilters } from "@/hooks/use-filters"
 
 interface Product {
   id: number
@@ -28,6 +27,11 @@ interface Product {
   price: number
   category: string
   quantity: number
+}
+
+interface Filters {
+  search?: string
+  category?: string
 }
 
 const categories = [
@@ -44,16 +48,13 @@ const categories = [
 
 export default function Page() {
   const [products, setProducts] = useState<Product[]>([])
-  const [search, setSearch] = useState("")
-  const [category, setCategory] = useState("")
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [totalCount, setTotalCount] = useState(0)
+  const [filters, setFilters] = useState<Filters>({})
   const router = useRouter()
   const searchParams = useSearchParams()
   const { toast } = useToast()
-
-  const { filters, setFilters } = useFilters()
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams)
@@ -148,12 +149,12 @@ export default function Page() {
 
           <div>
             <Label htmlFor="category">Category:</Label>
-            <Select onValueChange={handleCategoryChange} defaultValue={filters.category || ""}>
+            <Select onValueChange={handleCategoryChange} defaultValue={filters.category || "All Categories"}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="All Categories">All Categories</SelectItem>
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
                     {cat}
@@ -165,7 +166,7 @@ export default function Page() {
 
           <div>
             <Label htmlFor="pageSize">Page Size:</Label>
-            <Select onValueChange={handlePageSizeChange} defaultValue={pageSize.toString()}>
+            <Select onValueChange={(value) => handlePageSizeChange(Number(value))} defaultValue={pageSize.toString()}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select page size" />
               </SelectTrigger>
@@ -214,7 +215,7 @@ export default function Page() {
           </PaginationItem>
           {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
             <PaginationItem key={p}>
-              <PaginationLink href={`/compra?page=${p}`} onClick={() => handlePageChange(p)} isCurrent={p === page}>
+              <PaginationLink href={`/compra?page=${p}`} onClick={() => handlePageChange(p)} isActive={p === page}>
                 {p}
               </PaginationLink>
             </PaginationItem>

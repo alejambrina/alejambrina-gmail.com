@@ -3,10 +3,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-/* -------------------------------------------------------------------------- */
-/*                                   Types                                    */
-/* -------------------------------------------------------------------------- */
-
 export interface Filters {
   location: string
   minPrice: number
@@ -29,24 +25,13 @@ export const DEFAULT_FILTERS: Filters = {
   sortBy: "price-asc",
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                   Hook                                     */
-/* -------------------------------------------------------------------------- */
-
-/**
- * Global filter state shared across pages.
- * 1. Synchronises with the URL query-string
- * 2. Persists to localStorage (“techito-filters”)
- * 3. Provides helpers to update / clear filters and to count the active ones
- */
 export function useFilters() {
   const router = useRouter()
   const search = useSearchParams()
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
-  /* ---------------------- Initialise from URL / localStorage --------------- */
+  // Initialize from URL params or localStorage
   useEffect(() => {
-    // read URL params
     const urlFilters: Partial<Filters> = {
       location: search.get("location") ?? "",
       minPrice: Number(search.get("minPrice") ?? 0),
@@ -59,36 +44,29 @@ export function useFilters() {
       sortBy: search.get("sortBy") ?? "price-asc",
     }
 
-    // read from localStorage (only if URL is empty)
-    const saved = typeof window !== "undefined" ? localStorage.getItem("techito-filters") : null
+    const saved = localStorage.getItem("techito-filters")
     const initial = saved && !search.toString() ? JSON.parse(saved) : {}
 
     setFilters({ ...DEFAULT_FILTERS, ...urlFilters, ...initial })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // run once on mount
-
-  /* ------------------------------ Updaters --------------------------------- */
+  }, [search])
 
   const updateFilters = useCallback(
     (patch: Partial<Filters>) => {
       setFilters((prev) => {
         const next = { ...prev, ...patch }
 
-        // build query-string (only non-default values)
+        // Sync URL (only changed values)
         const params = new URLSearchParams()
-        Object.entries(next).forEach(([key, value]) => {
-          const def = DEFAULT_FILTERS[key as keyof Filters]
-          if (value !== def && value !== "" && value !== null) {
-            params.set(key, String(value))
-          }
+        Object.entries(next).forEach(([k, v]) => {
+          const def = DEFAULT_FILTERS[k as keyof Filters]
+          if (v !== def && v !== "" && v !== null) params.set(k, String(v))
         })
 
-        // push shallow-route change without scroll
-        router.push(params.size ? `?${params.toString()}` : window.location.pathname, {
+        router.push(params.toString() ? `?${params}` : window.location.pathname, {
           scroll: false,
         })
 
-        // persist to localStorage
+        // Persist in localStorage
         localStorage.setItem("techito-filters", JSON.stringify(next))
 
         return next
@@ -112,8 +90,6 @@ export function useFilters() {
     if (filters.creditEligible !== null) n++
     return n
   }, [filters])
-
-  /* ------------------------------------------------------------------------ */
 
   return { filters, updateFilters, clearFilters, getActiveFiltersCount }
 }
