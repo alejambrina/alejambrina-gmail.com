@@ -232,24 +232,6 @@ export default function PreciosPage() {
             </Card>
           ))}
         </div>
-
-        {/* Coverage Limitation Notice */}
-        <section className="bg-gray-50 rounded-lg p-6 border border-gray-200 mt-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-xl font-semibold mb-3 flex items-center justify-center gap-2">
-              <MapPin className="h-5 w-5 text-techitoPurple" />
-              Área de Cobertura
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Nuestros análisis están especializados en el mercado inmobiliario de{" "}
-              <strong>Capital Federal (CABA)</strong>. Contamos con datos precisos y actualizados de todos los barrios
-              porteños para brindarte el análisis más exacto posible.
-            </p>
-            <p className="text-sm text-gray-500">
-              ¿Tienes una propiedad fuera de CABA? Contáctanos para conocer nuestros planes de expansión.
-            </p>
-          </div>
-        </section>
       </main>
     </div>
   )
