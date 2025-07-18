@@ -1,11 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { Menu } from "lucide-react" // Removed other icon imports
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils" // Assuming cn utility is available
+import { cn } from "@/lib/utils"
 import Logo from "@/components/logo"
 
 export default function Header() {
@@ -13,7 +13,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/compra", label: "Propiedades" },
-    { href: "/precios", label: "Compra tu Techito" },
+    { href: "/precios", label: "Compra TuTechito" },
     { href: "/blog", label: "Blog" },
     { href: "/contacto", label: "Contacto" },
   ]
@@ -29,7 +29,7 @@ export default function Header() {
             key={link.href}
             href={link.href}
             className={cn(
-              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors", // Removed flex and gap
+              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors",
               pathname === link.href && "text-techitoPurple font-semibold",
             )}
           >
@@ -55,7 +55,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors", // Removed flex and gap
+                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors",
                     pathname === link.href && "text-techitoPurple font-semibold",
                   )}
                 >
