@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { CheckCircle, X, MapPin, Search, FileText, BarChart3, CheckSquare } from "lucide-react"
 import Header from "@/components/header"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function PreciosPage() {
   const pricingPlans = [
@@ -223,6 +224,127 @@ export default function PreciosPage() {
             </Card>
           ))}
         </div>
+
+        {/* FAQ Section */}
+        <section className="bg-white rounded-lg shadow-md p-8 border border-techitoLightGray">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Preguntas Frecuentes</h2>
+            <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+              Aquí encontrarás respuestas a las preguntas más comunes sobre nuestros análisis de propiedades y cómo
+              funciona Techito.
+            </p>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-0">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Qué es Techito y cómo me ayuda a ahorrar?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Techito es una plataforma que utiliza algoritmos avanzados para identificar propiedades en el mercado
+                  que están por debajo de su valor promedio. Te mostramos solo las 'gangas' para que puedas comprar tu
+                  primera propiedad o invertir pagando lo menos posible.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Cómo se calcula el 'porcentaje debajo del promedio'?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Nuestro sistema analiza miles de datos de propiedades similares (ubicación, tamaño, antigüedad,
+                  características) y compara el precio de la propiedad que te interesa con el promedio de mercado. El
+                  porcentaje indica cuánto más barata es esa propiedad en comparación con el valor esperado.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Techito es una inmobiliaria?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  No, Techito no es una inmobiliaria. Somos una plataforma tecnológica que te conecta con oportunidades
+                  y te brinda herramientas para que tomes las mejores decisiones. No cobramos comisiones por venta,
+                  nuestro modelo se basa en suscripciones a planes premium.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Puedo contactar al vendedor directamente a través de Techito?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Sí, una vez que encuentres una propiedad que te interese, te facilitamos el contacto directo con el
+                  vendedor o su representante para que puedas iniciar la negociación sin intermediarios innecesarios.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Qué tipo de propiedades puedo encontrar en Techito?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  En Techito encontrarás una amplia variedad de propiedades, desde departamentos y casas hasta PHs y
+                  lofts, en diversas ubicaciones. Nos enfocamos en identificar oportunidades en el mercado residencial.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Cómo puedo publicar mi propiedad en Techito?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Actualmente, Techito se enfoca en ayudar a los compradores a encontrar las mejores oportunidades. No
+                  ofrecemos una función directa para que los particulares publiquen sus propiedades. Sin embargo, si
+                  eres un desarrollador o una inmobiliaria y te interesa que tus propiedades aparezcan en nuestra
+                  plataforma, por favor contáctanos a través de la sección de 'Contacto'.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Techito ofrece asesoramiento legal o financiero?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Techito es una plataforma tecnológica y no brinda asesoramiento legal o financiero directo. Sin
+                  embargo, en nuestros planes Premium y Pro, te conectamos con una red de profesionales de confianza
+                  (escribanos, asesores financieros) que pueden guiarte en cada etapa del proceso de compra.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-7">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Cómo me aseguro de que las propiedades son realmente 'gangas'?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  Nuestro algoritmo de análisis de mercado es robusto y se actualiza constantemente con datos de
+                  diversas fuentes. Además, te proporcionamos herramientas para que puedas verificar la información y,
+                  si lo deseas, realizar tu propia investigación o consultar con un profesional antes de tomar cualquier
+                  decisión.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-8">
+                <AccordionTrigger className="text-left text-lg font-semibold text-techitoText hover:no-underline">
+                  ¿Hay alguna comisión por comprar a través de Techito?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-700 leading-relaxed">
+                  No, Techito no cobra ninguna comisión por la compra de propiedades. Nuestro modelo de negocio se basa
+                  en las suscripciones a nuestros planes (Básico, Premium, Pro), que te dan acceso a diferentes niveles
+                  de herramientas y oportunidades. El precio que ves es el precio de la propiedad, sin costos ocultos
+                  por nuestra parte.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
+            <div className="text-center mt-12">
+              <h3 className="text-2xl font-bold mb-4">¿No encontraste tu respuesta?</h3>
+              <p className="text-lg text-gray-600 mb-6">Contactanos y te ayudaremos con gusto.</p>
+              <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 px-8 rounded-md shadow-md">
+                Contactar
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
