@@ -1,49 +1,41 @@
 "use client"
 
-/**
- * Centralised property-filters hook
- *
- * Keeps state changes predictable and prevents render loops by:
- * • useReducer – single state transition per dispatch
- * • memoised helpers – stable identities for Radix / child comps
- * • one-time side-effects – localStorage + URL sync only on meaningful change
- */
+import { useCallback, useReducer } from "react"
 
-import { useReducer, useCallback, useEffect, useRef } from "react"
-
-/* ------------------------------------------------------------------ */
-/* Types & constants                                                  */
-/* ------------------------------------------------------------------ */
-
-type PriceRange = [number, number] | null
-
-export interface FiltersState {
-  price: PriceRange // ARS – null means “any”
-  rooms: "any" | "1" | "2" | "3+"
-  creditEligible: "any" | "yes" | "no"
-  neighbourhoods: string[] // barrio slugs
+/* ------------------------------------------------------------------
+ * Types & defaults
+ * ----------------------------------------------------------------- */
+export interface Filters {
+  location: string
+  minPrice: number
+  maxPrice: number
+  rooms: "any" | "1" | "2" | "3" | "4" | "4+"
+  minArea: number
+  maxArea: number
+  creditEligible: "any" | "true" | "false"
+  sortBy: "price-asc" | "price-desc" | "area-desc" | "area-asc" | "rooms-desc"
 }
 
-const DEFAULT_FILTERS: FiltersState = {
-  price: null,
+const DEFAULT_FILTERS: Filters = {
+  location: "",
+  minPrice: 0,
+  maxPrice: 500_000,
   rooms: "any",
+  minArea: 0,
+  maxArea: 300,
   creditEligible: "any",
-  neighbourhoods: [],
+  sortBy: "price-asc",
 }
 
-/* ------------------------------------------------------------------ */
-/* Reducer                                                            */
-/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------
+ * Reducer
+ * ----------------------------------------------------------------- */
+type Action = { type: "update"; payload: Partial<Filters> } | { type: "clear" }
 
-type Action = { type: "update"; key: keyof FiltersState; value: FiltersState[keyof FiltersState] } | { type: "clear" }
-
-function reducer(state: FiltersState, action: Action): FiltersState {
+function reducer(state: Filters, action: Action): Filters {
   switch (action.type) {
-    case "update": {
-      // Only change state when value is different
-      if (state[action.key] === action.value) return state
-      return { ...state, [action.key]: action.value }
-    }
+    case "update":
+      return { ...state, ...action.payload }
     case "clear":
       return DEFAULT_FILTERS
     default:
@@ -51,54 +43,27 @@ function reducer(state: FiltersState, action: Action): FiltersState {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Hook                                                               */
-/* ------------------------------------------------------------------ */
-
+/* ------------------------------------------------------------------
+ * Hook
+ * ----------------------------------------------------------------- */
 export function useFilters() {
   const [filters, dispatch] = useReducer(reducer, DEFAULT_FILTERS)
 
-  /* -------------------------------------------------------------- */
-  /* Derived helpers                                                */
-  /* -------------------------------------------------------------- */
+  /** Update one or more filter keys */
+  const updateFilters = useCallback((payload: Partial<Filters>) => dispatch({ type: "update", payload }), [])
 
-  const updateFilters = useCallback(<K extends keyof FiltersState>(key: K, value: FiltersState[K]) => {
-    dispatch({ type: "update", key, value })
-  }, [])
-
+  /** Reset everything */
   const clearFilters = useCallback(() => dispatch({ type: "clear" }), [])
 
+  /** How many filters are active (not default) */
   const getActiveFiltersCount = useCallback(() => {
     let count = 0
-    for (const key in filters) {
-      const val = filters[key as keyof FiltersState]
-      if (Array.isArray(val) ? val.length : val !== DEFAULT_FILTERS[key as keyof FiltersState]) count += 1
-    }
+    if (filters.location) count++
+    if (filters.minPrice > 0 || filters.maxPrice < 500_000) count++
+    if (filters.rooms !== "any") count++
+    if (filters.minArea > 0 || filters.maxArea < 300) count++
+    if (filters.creditEligible !== "any") count++
     return count
-  }, [filters])
-
-  /* -------------------------------------------------------------- */
-  /* Persist to localStorage & URL once per *real* change           */
-  /* -------------------------------------------------------------- */
-
-  const prevJson = useRef<string | null>(null)
-
-  useEffect(() => {
-    const json = JSON.stringify(filters)
-    if (json === prevJson.current) return
-    prevJson.current = json
-
-    // 1) localStorage
-    try {
-      localStorage.setItem("techito:filters", json)
-    } catch {
-      /* ignore */
-    }
-
-    // 2) URL (without triggering extra React renders)
-    const url = new URL(window.location.href)
-    url.searchParams.set("filters", btoa(json))
-    window.history.replaceState(null, "", url)
   }, [filters])
 
   return { filters, updateFilters, clearFilters, getActiveFiltersCount }

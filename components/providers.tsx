@@ -1,35 +1,27 @@
 "use client"
 
-import type React from "react"
-
-import { ThemeProvider } from "next-themes"
+import type { ReactNode } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental"
-import { SessionProvider } from "next-auth/react"
+import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/toaster"
-import { useFilters } from "@/hooks/use-filters" // Updated import
-
-interface ProvidersProps {
-  children: React.ReactNode
-  session?: any
-  dehydratedState?: any
-}
+import { useFilters } from "@/hooks/use-filters" // ✅ correct alias
 
 const queryClient = new QueryClient()
 
-export function Providers({ children, session, dehydratedState }: ProvidersProps) {
-  useFilters() // Initialize the filter context
+interface ProvidersProps {
+  children: ReactNode
+}
+
+export default function Providers({ children }: ProvidersProps) {
+  // Initialise global filters context (if other hooks/components subscribe to it)
+  useFilters()
 
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryStreamedHydration dehydratedState={dehydratedState}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </ReactQueryStreamedHydration>
-      </QueryClientProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        {children}
+        <Toaster />
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }

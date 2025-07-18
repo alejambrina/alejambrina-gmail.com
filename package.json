@@ -9,7 +9,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@auth/core": "latest",
     "@hookform/resolvers": "^3.9.1",
     "@next/third-parties": "latest",
     "@radix-ui/react-accordion": "latest",
@@ -40,7 +39,6 @@
     "@radix-ui/react-toggle-group": "latest",
     "@radix-ui/react-tooltip": "latest",
     "@tanstack/react-query": "latest",
-    "@tanstack/react-query-next-experimental": "latest",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -52,10 +50,8 @@
     "input-otp": "latest",
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
-    "next-auth": "latest",
     "next-pwa": "latest",
     "next-themes": "latest",
-    "nodemailer": "latest",
     "path": "latest",
     "react": "^19",
     "react-day-picker": "latest",
