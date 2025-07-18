@@ -4,7 +4,10 @@ import type { ReactNode } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/toaster"
-import { useFilters } from "@/hooks/use-filters" // ✅ correct alias
+
+// Just importing the hook ensures the file is bundled & the alias is valid.
+// DO NOT call the hook here to avoid unnecessary renders at the root.
+import "@/hooks/use-filters"
 
 const queryClient = new QueryClient()
 
@@ -13,9 +16,6 @@ interface ProvidersProps {
 }
 
 export default function Providers({ children }: ProvidersProps) {
-  // Initialise global filters context (if other hooks/components subscribe to it)
-  useFilters()
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
