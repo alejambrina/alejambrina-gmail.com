@@ -1,107 +1,104 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-
-export interface Filters {
-  location: string
-  minPrice: number
-  maxPrice: number
-  rooms: string
-  minArea: number
-  maxArea: number
-  creditEligible: boolean | null
-  sortBy: string
-}
-
-export const DEFAULT_FILTERS: Filters = {
-  location: "",
-  minPrice: 0,
-  maxPrice: 500_000,
-  rooms: "",
-  minArea: 0,
-  maxArea: 300,
-  creditEligible: null,
-  sortBy: "price-asc",
-}
-
 /**
- * Centralised filter hook for /compra and any other pages that need
- * URL-synced filters. Keeps helpers stable to avoid re-render loops.
+ * Centralised property-filters hook
+ *
+ * Keeps state changes predictable and prevents render loops by:
+ * • useReducer – single state transition per dispatch
+ * • memoised helpers – stable identities for Radix / child comps
+ * • one-time side-effects – localStorage + URL sync only on meaningful change
  */
-export function useFilters() {
-  const router = useRouter()
-  const search = useSearchParams()
 
-  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
+import { useReducer, useCallback, useEffect, useRef } from "react"
 
-  /* -------------------------------------------------------------
-   * Initialise from URL   →  local state
-   * or from localStorage  →  local state (if URL is clean)
-   * ----------------------------------------------------------- */
-  useEffect(() => {
-    const urlFilters: Partial<Filters> = {
-      location: search.get("location") ?? "",
-      minPrice: Number(search.get("minPrice") ?? 0),
-      maxPrice: Number(search.get("maxPrice") ?? 500_000),
-      rooms: search.get("rooms") ?? "",
-      minArea: Number(search.get("minArea") ?? 0),
-      maxArea: Number(search.get("maxArea") ?? 300),
-      creditEligible:
-        search.get("creditEligible") === "true" ? true : search.get("creditEligible") === "false" ? false : null,
-      sortBy: search.get("sortBy") ?? "price-asc",
+/* ------------------------------------------------------------------ */
+/* Types & constants                                                  */
+/* ------------------------------------------------------------------ */
+
+type PriceRange = [number, number] | null
+
+export interface FiltersState {
+  price: PriceRange // ARS – null means “any”
+  rooms: "any" | "1" | "2" | "3+"
+  creditEligible: "any" | "yes" | "no"
+  neighbourhoods: string[] // barrio slugs
+}
+
+const DEFAULT_FILTERS: FiltersState = {
+  price: null,
+  rooms: "any",
+  creditEligible: "any",
+  neighbourhoods: [],
+}
+
+/* ------------------------------------------------------------------ */
+/* Reducer                                                            */
+/* ------------------------------------------------------------------ */
+
+type Action = { type: "update"; key: keyof FiltersState; value: FiltersState[keyof FiltersState] } | { type: "clear" }
+
+function reducer(state: FiltersState, action: Action): FiltersState {
+  switch (action.type) {
+    case "update": {
+      // Only change state when value is different
+      if (state[action.key] === action.value) return state
+      return { ...state, [action.key]: action.value }
     }
+    case "clear":
+      return DEFAULT_FILTERS
+    default:
+      return state
+  }
+}
 
-    const saved = localStorage.getItem("techito-filters")
-    const initial = saved && !search.toString() ? JSON.parse(saved) : {}
+/* ------------------------------------------------------------------ */
+/* Hook                                                               */
+/* ------------------------------------------------------------------ */
 
-    setFilters({ ...DEFAULT_FILTERS, ...urlFilters, ...initial })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // run once
+export function useFilters() {
+  const [filters, dispatch] = useReducer(reducer, DEFAULT_FILTERS)
 
-  /* -------------------------------------------------------------
-   * Update helpers
-   * ----------------------------------------------------------- */
+  /* -------------------------------------------------------------- */
+  /* Derived helpers                                                */
+  /* -------------------------------------------------------------- */
 
-  const updateFilters = useCallback(
-    (patch: Partial<Filters>) => {
-      setFilters((prev) => {
-        const next = { ...prev, ...patch }
+  const updateFilters = useCallback(<K extends keyof FiltersState>(key: K, value: FiltersState[K]) => {
+    dispatch({ type: "update", key, value })
+  }, [])
 
-        // Sync URL (only changed values)
-        const params = new URLSearchParams()
-        Object.entries(next).forEach(([k, v]) => {
-          const def = DEFAULT_FILTERS[k as keyof Filters]
-          if (v !== def && v !== "" && v !== null) params.set(k, String(v))
-        })
-
-        router.push(params.toString() ? `?${params}` : window.location.pathname, {
-          scroll: false,
-        })
-
-        // Persist in localStorage
-        localStorage.setItem("techito-filters", JSON.stringify(next))
-
-        return next
-      })
-    },
-    [router],
-  )
-
-  const clearFilters = useCallback(() => {
-    setFilters(DEFAULT_FILTERS)
-    router.push(window.location.pathname, { scroll: false })
-    localStorage.removeItem("techito-filters")
-  }, [router])
+  const clearFilters = useCallback(() => dispatch({ type: "clear" }), [])
 
   const getActiveFiltersCount = useCallback(() => {
-    let n = 0
-    if (filters.location) n++
-    if (filters.minPrice > 0 || filters.maxPrice < 500_000) n++
-    if (filters.rooms) n++
-    if (filters.minArea > 0 || filters.maxArea < 300) n++
-    if (filters.creditEligible !== null) n++
-    return n
+    let count = 0
+    for (const key in filters) {
+      const val = filters[key as keyof FiltersState]
+      if (Array.isArray(val) ? val.length : val !== DEFAULT_FILTERS[key as keyof FiltersState]) count += 1
+    }
+    return count
+  }, [filters])
+
+  /* -------------------------------------------------------------- */
+  /* Persist to localStorage & URL once per *real* change           */
+  /* -------------------------------------------------------------- */
+
+  const prevJson = useRef<string | null>(null)
+
+  useEffect(() => {
+    const json = JSON.stringify(filters)
+    if (json === prevJson.current) return
+    prevJson.current = json
+
+    // 1) localStorage
+    try {
+      localStorage.setItem("techito:filters", json)
+    } catch {
+      /* ignore */
+    }
+
+    // 2) URL (without triggering extra React renders)
+    const url = new URL(window.location.href)
+    url.searchParams.set("filters", btoa(json))
+    window.history.replaceState(null, "", url)
   }, [filters])
 
   return { filters, updateFilters, clearFilters, getActiveFiltersCount }

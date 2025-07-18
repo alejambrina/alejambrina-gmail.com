@@ -1,24 +1,35 @@
 "use client"
 
-import type { ReactNode } from "react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ThemeProvider } from "@/components/theme-provider"
+import type React from "react"
 
-/**
- * App-wide providers:
- * 1. React-Query (TanStack Query)
- * 2. shadcn/ui ThemeProvider
- *
- * NOTE: **No more `@v0/hooks/use-filters` import here.**
- */
+import { ThemeProvider } from "next-themes"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental"
+import { SessionProvider } from "next-auth/react"
+import { Toaster } from "@/components/ui/toaster"
+import { useFilters } from "@/hooks/use-filters" // Updated import
+
+interface ProvidersProps {
+  children: React.ReactNode
+  session?: any
+  dehydratedState?: any
+}
+
 const queryClient = new QueryClient()
 
-export default function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children, session, dehydratedState }: ProvidersProps) {
+  useFilters() // Initialize the filter context
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-        {children}
-      </ThemeProvider>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryStreamedHydration dehydratedState={dehydratedState}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </ReactQueryStreamedHydration>
+      </QueryClientProvider>
+    </SessionProvider>
   )
 }
