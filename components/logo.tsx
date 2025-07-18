@@ -7,9 +7,9 @@ export default function Logo() {
       <Image
         src="/images/techito-logo-green.png"
         alt="Techito"
-        width={240}
-        height={80}
-        className="h-16 w-auto"
+        width={160}
+        height={53}
+        className="h-12 w-auto"
         priority
       />
     </Link>
