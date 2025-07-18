@@ -53,11 +53,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom colors for Techito based on the image
+        // Custom colors for Techito - Updated to green
         techitoPurple: {
-          DEFAULT: "#7F56D9", // Restaurado al violeta original
-          light: "#9B7EEA",
-          dark: "#6A49B8",
+          DEFAULT: "#22C55E", // Cambiado de violeta a verde
+          light: "#4ADE80",
+          dark: "#16A34A",
         },
         techitoBackground: "#F8F8F8",
         techitoText: "#333333",

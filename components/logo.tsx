@@ -3,15 +3,8 @@ import Image from "next/image"
 
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center">
-      <Image
-        src="/images/techito-logo.png"
-        alt="Techito Logo"
-        width={120}
-        height={40}
-        className="h-8 w-auto"
-        priority
-      />
+    <Link href="/" className="flex items-center gap-x-3.5 flex-col leading-3">
+      <Image src="/images/techito-logo.png" alt="Techito" width={192} height={64} className="h-14 w-auto" />
     </Link>
   )
 }

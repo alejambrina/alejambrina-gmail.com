@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 // Add new imports for icons
-import { Sparkles, MapPin, DollarSign, Square, Bed, Bath, Car, Wallet } from "lucide-react"
+import { Sparkles, MapPin, CircleDollarSignIcon, Square, Bed, Bath, Car, Wallet } from "lucide-react"
 import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image"
@@ -67,11 +67,11 @@ export default async function HomePage() {
                     </p>
                     <div className="flex items-center gap-8 w-full">
                       <p className="font-bold text-lg flex items-center gap-1">
-                        <DollarSign className="h-5 w-5 text-techitoGreen" /> USD {property.priceUSD}
+                         USD {property.priceUSD}
                       </p>
                       {property.priceUVA && (
-                        <p className="font-bold text-lg flex items-center gap-1">
-                          <Wallet className="h-5 w-5 text-techitoPurple" /> UVA {property.priceUVA}
+                        <p className="font-bold text-lg flex gap-1 items-center text-center mx-0 px-44">
+                           UVA {property.priceUVA}
                         </p>
                       )}
                     </div>
