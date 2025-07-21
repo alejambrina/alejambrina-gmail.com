@@ -1,93 +1,128 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
 import Logo from "@/components/logo"
 
 export default function Header() {
-  const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const navLinks = [
-    { href: "/compra", label: "Propiedades" },
-    { href: "/precios", label: "Compra TuTechito" },
-    { href: "/blog", label: "Blog" },
-    { href: "/contacto", label: "Contacto" },
-  ]
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   return (
-    <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray bg-white">
-      <Logo />
+    <header className="bg-white border-b border-techitoLightGray sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/">
+              <Logo />
+            </Link>
+          </div>
 
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex ml-auto gap-4 sm:gap-6 items-center">
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={cn(
-              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors",
-              pathname === link.href && "text-techitoPurple font-semibold",
-            )}
-          >
-            {link.label}
-          </Link>
-        ))}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            <Link href="/como-funciona" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Cómo funciona
+            </Link>
+            <Link href="/compra" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Compra
+            </Link>
+            <Link href="/precios" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Precios
+            </Link>
+            <Link href="/preguntas" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Preguntas
+            </Link>
+            <Link href="/blog" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Blog
+            </Link>
+            <Link href="/contacto" className="text-techitoText hover:text-techitoPurple transition-colors">
+              Contacto
+            </Link>
+          </nav>
 
-        {/* CTA Button */}
-        <Link href="/precios">
-          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1.5 px-4 rounded-md text-sm transition-all duration-200 ml-4">
-            Conseguí tu Techito
-          </Button>
-        </Link>
-      </nav>
+          {/* Desktop CTA Button */}
+          <div className="hidden md:block">
+            <Link href="/precios">
+              <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1.5 px-4 text-sm rounded-md transition-colors">
+                Conseguí tu Techito
+              </Button>
+            </Link>
+          </div>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden flex items-center gap-2">
-        {/* Mobile CTA Button */}
-        <Link href="/precios">
-          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1 px-3 rounded-md text-xs">
-            Conseguí tu Techito
-          </Button>
-        </Link>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-techitoText hover:text-techitoPurple focus:outline-none focus:text-techitoPurple"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="text-techitoPurple">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle navigation menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-white p-6">
-            <Logo />
-            <nav className="grid gap-4 mt-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors",
-                    pathname === link.href && "text-techitoPurple font-semibold",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              {/* Mobile CTA in menu */}
-              <div className="mt-6 pt-6 border-t border-techitoLightGray">
-                <Link href="/precios">
-                  <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-2 px-4 rounded-md w-full">
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-techitoLightGray">
+              <Link
+                href="/como-funciona"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Cómo funciona
+              </Link>
+              <Link
+                href="/compra"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Compra
+              </Link>
+              <Link
+                href="/precios"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Precios
+              </Link>
+              <Link
+                href="/preguntas"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Preguntas
+              </Link>
+              <Link
+                href="/blog"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/contacto"
+                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contacto
+              </Link>
+              {/* Mobile CTA Button */}
+              <div className="px-3 py-2">
+                <Link href="/precios" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1 px-3 text-xs rounded-md transition-colors">
                     Conseguí tu Techito
                   </Button>
                 </Link>
               </div>
-            </nav>
-          </SheetContent>
-        </Sheet>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   )
