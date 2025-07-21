@@ -19,7 +19,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray bg-white sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+    <header className="px-6 py-4 flex items-center justify-between border-b border-techitoLightGray bg-white">
       <Logo />
 
       {/* Desktop Navigation */}
@@ -29,8 +29,8 @@ export default function Header() {
             key={link.href}
             href={link.href}
             className={cn(
-              "text-sm font-medium text-techitoText hover:text-techitoPrimary transition-colors",
-              pathname === link.href && "text-techitoPrimary font-semibold",
+              "text-sm font-medium text-techitoText hover:text-techitoPurple transition-colors",
+              pathname === link.href && "text-techitoPurple font-semibold",
             )}
           >
             {link.label}
@@ -39,7 +39,7 @@ export default function Header() {
 
         {/* CTA Button */}
         <Link href="/precios">
-          <Button className="btn-cta ml-4 group">
+          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ml-4 group">
             Conseguí tu Techito
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
@@ -50,14 +50,14 @@ export default function Header() {
       <div className="md:hidden flex items-center gap-2">
         {/* Mobile CTA Button */}
         <Link href="/precios">
-          <Button size="sm" className="btn-cta text-xs px-4 py-2">
+          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-2 px-4 rounded-lg text-xs">
             Conseguí tu Techito
           </Button>
         </Link>
 
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="text-techitoPrimary">
+            <Button variant="ghost" size="icon" className="text-techitoPurple">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
@@ -70,8 +70,8 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-lg font-medium text-techitoText hover:text-techitoPrimary transition-colors py-2",
-                    pathname === link.href && "text-techitoPrimary font-semibold",
+                    "text-lg font-medium text-techitoText hover:text-techitoPurple transition-colors",
+                    pathname === link.href && "text-techitoPurple font-semibold",
                   )}
                 >
                   {link.label}
@@ -81,7 +81,7 @@ export default function Header() {
               {/* Mobile CTA in menu */}
               <div className="mt-6 pt-6 border-t border-techitoLightGray">
                 <Link href="/precios">
-                  <Button className="btn-cta w-full group">
+                  <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 px-6 rounded-lg w-full group">
                     Conseguí tu Techito
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
