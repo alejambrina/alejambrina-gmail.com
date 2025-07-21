@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Menu, ArrowRight } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from "next/navigation"
@@ -39,9 +39,8 @@ export default function Header() {
 
         {/* CTA Button */}
         <Link href="/precios">
-          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 ml-4 group">
+          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1.5 px-4 rounded-md text-sm transition-all duration-200 ml-4">
             Conseguí tu Techito
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </Link>
       </nav>
@@ -50,7 +49,7 @@ export default function Header() {
       <div className="md:hidden flex items-center gap-2">
         {/* Mobile CTA Button */}
         <Link href="/precios">
-          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-2 px-4 rounded-lg text-xs">
+          <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1 px-3 rounded-md text-xs">
             Conseguí tu Techito
           </Button>
         </Link>
@@ -81,9 +80,8 @@ export default function Header() {
               {/* Mobile CTA in menu */}
               <div className="mt-6 pt-6 border-t border-techitoLightGray">
                 <Link href="/precios">
-                  <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-semibold py-3 px-6 rounded-lg w-full group">
+                  <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-2 px-4 rounded-md w-full">
                     Conseguí tu Techito
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
               </div>
