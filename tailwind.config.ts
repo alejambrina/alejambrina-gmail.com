@@ -53,16 +53,25 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom colors for Techito - Updated to green
-        techitoPurple: {
-          DEFAULT: "#22C55E", // Cambiado de violeta a verde
-          light: "#4ADE80",
-          dark: "#16A34A",
+        // Custom colors for Techito - Inspired by TasaTasa
+        techitoPrimary: {
+          DEFAULT: "#0F5F3F", // Verde oscuro principal
+          light: "#1B7F5A", // Verde medio
+          lighter: "#22C55E", // Verde claro/brillante
+          dark: "#0A4A32", // Verde muy oscuro
         },
-        techitoBackground: "#F8F8F8",
-        techitoText: "#333333",
-        techitoLightGray: "#E0E0E0",
-        techitoGreen: "#22C55E",
+        techitoSecondary: {
+          DEFAULT: "#22C55E", // Verde brillante para CTAs
+          light: "#4ADE80", // Verde claro para hover
+          dark: "#16A34A", // Verde oscuro para hover
+        },
+        techitoBackground: "#FAFAFA", // Fondo muy claro
+        techitoText: "#1F2937", // Texto oscuro
+        techitoLightGray: "#F3F4F6", // Gris muy claro
+        techitoMediumGray: "#9CA3AF", // Gris medio
+        techitoSuccess: "#10B981", // Verde para éxito
+        techitoWarning: "#F59E0B", // Amarillo para advertencias
+        techitoError: "#EF4444", // Rojo para errores
       },
       borderRadius: {
         lg: "var(--radius)",
