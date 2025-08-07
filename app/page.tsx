@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 // Add new imports for icons
-import { Sparkles, MapPin, Square, Bed, Bath, Car, Wallet, Home } from "lucide-react"
+import { Sparkles, MapPin, Square, Bed, Bath, Car, Wallet, Home } from 'lucide-react'
 import Link from "next/link"
 import { getProperties } from "@/actions/properties"
 import Image from "next/image"
@@ -47,7 +47,7 @@ export default async function HomePage() {
                 <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                   <div className="absolute inset-0 bg-white rounded-full overflow-hidden shadow-2xl">
                     <Image
-                      src="/placeholder.svg?height=400&width=400&text=🏠&bg=f3f4f6&color=22c55e"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IkoPugkWEieD0fJIniILlYpcK9DuNC.png"
                       alt="Persona buscando propiedades"
                       fill
                       className="object-cover"

@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Logo from "@/components/logo"
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
+import Logo from './logo'
+import { Button } from '@/components/ui/button'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -27,9 +27,6 @@ export default function Header() {
             <Link href="/como-funciona" className="text-techitoText hover:text-techitoPurple transition-colors">
               Cómo funciona
             </Link>
-            <Link href="/compra" className="text-techitoText hover:text-techitoPurple transition-colors">
-              Compra
-            </Link>
             <Link href="/precios" className="text-techitoText hover:text-techitoPurple transition-colors">
               Precios
             </Link>
@@ -44,7 +41,7 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Desktop CTA Button */}
+          {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <Link href="/precios">
               <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1.5 px-4 text-sm rounded-md transition-colors">
@@ -54,10 +51,18 @@ export default function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            {/* CTA Button - Mobile */}
+            <Link href="/precios">
+              <Button className="bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1 px-3 text-xs rounded-md transition-colors">
+                Conseguí tu Techito
+              </Button>
+            </Link>
+            
             <button
               onClick={toggleMenu}
-              className="text-techitoText hover:text-techitoPurple focus:outline-none focus:text-techitoPurple"
+              className="text-techitoText hover:text-techitoPurple transition-colors"
+              aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -67,20 +72,13 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-techitoLightGray">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-techitoLightGray">
               <Link
                 href="/como-funciona"
                 className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Cómo funciona
-              </Link>
-              <Link
-                href="/compra"
-                className="block px-3 py-2 text-techitoText hover:text-techitoPurple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Compra
               </Link>
               <Link
                 href="/precios"
@@ -110,14 +108,13 @@ export default function Header() {
               >
                 Contacto
               </Link>
-              {/* Mobile CTA Button */}
-              <div className="px-3 py-2">
-                <Link href="/precios" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-techitoPurple hover:bg-techitoPurple/90 text-white font-medium py-1 px-3 text-xs rounded-md transition-colors">
-                    Conseguí tu Techito
-                  </Button>
-                </Link>
-              </div>
+              <Link
+                href="/precios"
+                className="block px-3 py-2 bg-techitoPurple text-white rounded-md font-medium mt-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Conseguí tu Techito
+              </Link>
             </div>
           </div>
         )}
